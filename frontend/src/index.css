@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bebas+Neue&family=Black+Ops+One&family=Mochiy+Pop+P+One&family=Orbitron:wght@600&family=Oswald:wght@300;400;500&display=swap");
+body {
+  color: rgba(245, 241, 241, 0.74) !important;
+  font-family: "Orbitron", sans-serif !important;
+}
+.default-width {
+  max-width: 1200px !important;
+  margin: auto;
+}
+.menu {
+  border-top: rgba(243, 34, 6, 0.603) 3px solid;
+  background-color: #fed501 !important;
+  color: rgb(37, 37, 37) !important;
+}
+
+.custom-slider {
+  background-color: rgba(0, 0, 0, 0.068) !important;
+}
+.text-stoke {
+  -webkit-text-stroke: 1px rgba(245, 245, 245, 0.548);
+}
+.link {
+  text-decoration: none !important;
+  color: rgb(37, 37, 37) !important;
+}
+
+.image1-hero {
+  width: 20rem;
+  height: 18rem;
+  display: block;
+  margin: auto;
+}
+.digital {
+  position: relative;
+}
+.digital-image {
+  position: absolute;
+  margin-left: 10rem;
+  margin-top: 2rem;
+}
+.digital-text {
+  position: absolute;
+  margin-left: 28rem;
+}
+.digitalh2 {
+  -webkit-text-stroke: 1px rgb(253, 253, 253);
+  color: #1f2072;
+  font-size: 2rem;
+  margin-top: 5rem;
+}
+.digitalh1 {
+  -webkit-text-stroke: 1px rgb(253, 253, 253);
+  color: #d50100;
+  font-size: 3rem;
+}
+
+.box-shadow {
+  -webkit-box-shadow: 0px -4px 15px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px -4px 15px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px -4px 15px rgba(50, 50, 50, 0.75);
+}
+.box-shadow-side {
+  box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8),
+    -12px 0 8px -4px rgba(31, 73, 125, 0.8);
+}
+.footer {
+  background-color: rgb(53, 52, 52);
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+.animation-div {
+  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 4s; /* don't forget to set a duration! */
+}
+.animation-div-up {
+  animation: fadeIn;
+  animation-duration: 3s;
+}
+
+.text-black {
+  color: black !important;
+}
+
+.yellow-bck {
+  background-color: #fed501 !important;
+  max-height: 100% !important;
+}
+
+.box-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2%;
+}
+.box {
+  background: rgb(24, 23, 23);
+  border: 1px solid #b6b1b1;
+  box-shadow: 0 5px 8px 0px rgba(0, 0, 0, 0.692);
+  transition: 0.2s all;
+}
+.box-wrap:hover .box {
+  filter: blur(3px);
+  opacity: 0.5;
+  transform: scale(0.98);
+  box-shadow: 0 5px 8px 0px #d50100;
+}
+.box-wrap:hover .box:hover {
+  transform: scale(1);
+  filter: blur(0px);
+  opacity: 1;
+  box-shadow: 0 5px 8px 0px #fed401;
+}
+
+.img-hover-zoom {
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+.img-hover-zoom .image {
+  transition: transform 0.5s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom:hover .image {
+  transform: scale(1.2);
+}
