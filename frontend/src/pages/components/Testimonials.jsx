@@ -2,6 +2,7 @@ import React from "react";
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
 import { Tag } from "rsuite";
+import ScrollAnimation from "react-animate-on-scroll";
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -26,19 +27,21 @@ const Testimonials = ({ testimonials }) => {
     <div className="animation-div">
       <Carousel responsive={responsive}>
         {testimonials.map((item) => (
-          <div
-            style={{
-              color: "black",
-              marginTop: "4rem",
-              fontSize: "0.8rem",
-              paddingBottom: "2rem",
-            }}
-          >
-            <p>"{item.desc}"</p>
-            <h5>
-              <Tag color="red"> - {item.name}</Tag>
-            </h5>
-          </div>
+          <ScrollAnimation animateIn="animate__flipInY">
+            <div
+              style={{
+                color: "black",
+                marginTop: "4rem",
+                fontSize: "0.8rem",
+                paddingBottom: "2rem",
+              }}
+            >
+              <p>"{item.desc}"</p>
+              <h5>
+                <Tag color="red"> - {item.name}</Tag>
+              </h5>
+            </div>
+          </ScrollAnimation>
         ))}
       </Carousel>
     </div>

@@ -91,8 +91,8 @@ const NewContact = () => {
     );
   };
   return (
-    <div className="default-width text-black">
-      <Form fluid style={{ padding: "2rem", width: "50rem", margin: "auto" }}>
+    <div className="default-width text-black jumbotron">
+      <Form fluid>
         <Form.Group controlId="name-1">
           <Form.ControlLabel>Name of Government Department</Form.ControlLabel>
           <Form.Control

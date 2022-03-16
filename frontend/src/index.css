@@ -69,14 +69,6 @@ body {
   color: white;
   padding: 2rem;
 }
-.animation-div {
-  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 4s; /* don't forget to set a duration! */
-}
-.animation-div-up {
-  animation: fadeIn;
-  animation-duration: 3s;
-}
 
 .text-black {
   color: black !important;
@@ -122,4 +114,21 @@ body {
 /* [3] Finally, transforming the image when container gets hovered */
 .img-hover-zoom:hover .image {
   transform: scale(1.2);
+}
+
+.jumbotron {
+  background-color: #b6b1b1;
+  padding: 1rem;
+  width: 40rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+  .logo {
+    width: 100% !important;
+  }
 }

@@ -14,6 +14,7 @@ const LogoArea = () => {
         <div className="default-width">
           <img
             src={toplogo}
+            className="logo"
             alt="logo"
             style={{ width: "25rem", padding: "0.5rem" }}
           />
