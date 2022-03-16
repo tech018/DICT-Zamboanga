@@ -4,6 +4,8 @@ import { single } from "../actions/newsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Markup } from "interweave";
+import Meta from "./components/Meta";
+import { toast } from "react-toastify";
 
 const SingleNews = () => {
   const params = useParams();
@@ -15,15 +17,21 @@ const SingleNews = () => {
 
   useEffect(() => {
     dispatch(single(id));
-  }, [id, dispatch]);
+    if (error) {
+      toast.error(error);
+    }
+  }, [id, dispatch, error]);
+
+  console.log(singlenews);
   return (
     <div>
+      <Meta title={`Article : ${singlenews.title}`} />
       <Grid>
         <Row>
           <Col xs={24} className="text-black">
             <img
               src={`/zamboanga/${singlenews && singlenews.picture}`}
-              alt={singleNews && singlenews.name}
+              alt={singleNews && singlenews.title}
               style={{
                 width: "50rem",
                 margin: "auto",
