@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { contactlist } from "../actions/contactActions";
 import { toast } from "react-toastify";
 import { Button } from "rsuite";
+import Meta from "./components/Meta";
 
 const Contact = () => {
   const [pageNumber, setPageNumber] = useState(8);
@@ -19,6 +20,7 @@ const Contact = () => {
   }, [dispatch, pageNumber, error]);
   return (
     <div className="default-width">
+      <Meta title={`List of Contacts`} />
       <ContactCard loading={loading} data={data} />
       <div style={{ margin: "1rem" }}>
         <Button

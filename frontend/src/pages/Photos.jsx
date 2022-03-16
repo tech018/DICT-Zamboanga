@@ -23,10 +23,12 @@ import TrashIcon from "@rsuite/icons/Trash";
 import { deletephoto } from "../actions/photoActions";
 import { DELETE_PHOTO_RESET } from "../constants/photoConstant";
 import { toast } from "react-toastify";
+import ScrollAnimation from "react-animate-on-scroll";
+import Meta from "./components/Meta";
 
 const Photos = () => {
   const [category, setCategory] = useState("");
-  const [pageNumber, setPageNumber] = useState(5);
+  const [pageNumber, setPageNumber] = useState(6);
   const [caption, setCaption] = useState("");
 
   const navigate = useNavigate();
@@ -74,8 +76,11 @@ const Photos = () => {
   const handleDelete = (id) => {
     dispatch(deletephoto(id));
   };
+
+  console.log(photos);
   return (
     <div className="default-width">
+      <Meta title={`Photos`} />
       <Grid fluid>
         <Row className="show-grid">
           <Col xs={12}>
@@ -154,44 +159,48 @@ const Photos = () => {
                 <Row>
                   <Masonry columnsCount={3}>
                     {photos.map((item, i) => (
-                      <div className="box-wrap">
-                        <div className="box">
-                          <Col xs={24} style={{ padding: "0px" }}>
-                            <img
-                              key={i}
-                              src={`/zamboanga/${item.src}`}
-                              style={{
-                                width: "100%",
-                              }}
-                              className="imageGallery"
-                              alt={item.caption}
-                            />
-                          </Col>
-
-                          <Col
-                            xs={20}
-                            style={{
-                              marginTop: "0.8rem",
-                              marginBottom: "0.8rem",
-                            }}
-                          >
-                            <span style={{ paddingLeft: "1rem" }}>
-                              {item.caption}
-                            </span>
-                          </Col>
-
-                          {userInfo && (
-                            <Col xs={4}>
-                              <IconButton
-                                style={{ padding: "0.5rem", margin: "0.5rem" }}
-                                onClick={() => handleDelete(item.id)}
-                                appearance="primary"
-                                icon={<TrashIcon />}
+                      <ScrollAnimation animateIn="animate__flipInY">
+                        <div className="box-wrap">
+                          <div className="box">
+                            <Col key={i} xs={24} style={{ padding: "0px" }}>
+                              <img
+                                src={`/zamboanga/${item.src}`}
+                                style={{
+                                  width: "100%",
+                                }}
+                                className="imageGallery"
+                                alt={item.caption}
                               />
                             </Col>
-                          )}
+
+                            <Col
+                              xs={20}
+                              style={{
+                                marginTop: "0.8rem",
+                                marginBottom: "0.8rem",
+                              }}
+                            >
+                              <span style={{ paddingLeft: "1rem" }}>
+                                {item.caption}
+                              </span>
+                            </Col>
+
+                            {userInfo && (
+                              <Col xs={4}>
+                                <IconButton
+                                  style={{
+                                    padding: "0.5rem",
+                                    margin: "0.5rem",
+                                  }}
+                                  onClick={() => handleDelete(item.id)}
+                                  appearance="primary"
+                                  icon={<TrashIcon />}
+                                />
+                              </Col>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      </ScrollAnimation>
                     ))}
                   </Masonry>
                 </Row>
@@ -204,7 +213,7 @@ const Photos = () => {
                 color="yellow"
                 appearance="primary"
                 style={{ display: "block", margin: "auto" }}
-                onClick={() => setPageNumber(pageNumber + 5)}
+                onClick={() => setPageNumber(pageNumber + 1)}
               >
                 {loading ? <Loader content="Loading..." /> : "Show more"}
               </Button>

@@ -23,5 +23,6 @@ db.contact = require("./contact.model.js")(sequelize, Sequelize);
 db.photos = require("./photo.model.js")(sequelize, Sequelize);
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.news = require("./news.model")(sequelize, Sequelize);
+db.credit = require("./credit.model")(sequelize, Sequelize);
 
 module.exports = db;

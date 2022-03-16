@@ -4,9 +4,13 @@ import backgroundImage from "../images/backgroundImage.jpg";
 import HeroSection from "./components/HeroSection";
 import Talent from "./components/Talent";
 import OurPartners from "./components/OurPartners";
+import ScrollAnimation from "react-animate-on-scroll";
+import Meta from "./components/Meta";
+
 const Home = () => {
   return (
     <div>
+      <Meta title={`Digital City Zamboanga Website`} />
       <div
         style={{
           backgroundImage: "url(" + backgroundImage + ")",
@@ -14,15 +18,23 @@ const Home = () => {
         }}
       >
         <div className="default-width">
-          <HeroSection />
+          <ScrollAnimation animateIn="fadeIn">
+            <HeroSection />
+          </ScrollAnimation>
         </div>
       </div>
       <div className="default-width">
-        <WhyZamboanga />
+        <ScrollAnimation animateIn="fadeIn">
+          <WhyZamboanga />
+        </ScrollAnimation>
       </div>
-      <Talent />
+      <ScrollAnimation animateIn="fadeIn">
+        <Talent />
+      </ScrollAnimation>
       <div className="default-width">
-        <OurPartners />
+        <ScrollAnimation animateIn="fadeIn">
+          <OurPartners />
+        </ScrollAnimation>
       </div>
     </div>
   );
