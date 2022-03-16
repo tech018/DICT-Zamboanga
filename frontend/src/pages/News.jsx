@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { newslist } from "../actions/newsActions";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Meta from "./components/Meta";
 
 const News = () => {
   const [page, setPage] = useState(0);
@@ -24,6 +25,7 @@ const News = () => {
   }, [dispatch, size, navigate, page, title]);
   return (
     <div className="default-width text-black">
+      <Meta title={`News and Events`} />
       <Grid fluid style={{ marginTop: "1rem", marginBottom: "2rem" }}>
         <Row className="show-grid" style={{ margin: "auto" }}>
           <Col xs={24}>
