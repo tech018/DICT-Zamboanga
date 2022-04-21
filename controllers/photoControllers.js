@@ -16,6 +16,7 @@ const allPhotos = asyncHandler(async (req, res) => {
         caption: { [Op.like]: `%${title}%` },
       },
       limit: Number(pageNumber),
+      order: [["updatedAt", "DESC"]],
     });
     if (photos) {
       res.status(200).json(photos);
@@ -26,18 +27,10 @@ const allPhotos = asyncHandler(async (req, res) => {
 });
 
 const createPhoto = asyncHandler(async (req, res) => {
-  const { src, caption, category } = req.body;
-
-  if (!caption)
-    return res.status(400).json({ message: "Please enter a picture title" });
-  if (!category)
-    return res.status(400).json({ message: "Please enter category" });
-  if (!src) return res.status(400).json({ message: "Please upload a picture" });
-
   const photos = {
-    src,
-    caption,
-    category,
+    src: "sampleimage.jpg",
+    caption: "Sample Caption",
+    category: "food",
   };
   try {
     const createphoto = await Photo.create(photos);
@@ -85,11 +78,13 @@ const uploadFile = asyncHandler(async (req, res) => {
 });
 
 const deletePhoto = asyncHandler(async (req, res) => {
-  const id = req.params.id;
+  const { list } = req.body;
 
   try {
+    if (list.length <= 0)
+      return res.status(400).json({ message: "no selected photos" });
     const photo = await Photo.destroy({
-      where: { id: id },
+      where: { id: list },
     });
 
     if (photo) {

@@ -58,7 +58,10 @@ const NewsCard = ({ loading, error, news, userInfo, dispatch }) => {
 
               <Panel header={item.title}>
                 <Button
-                  style={{ width: "100%", marginTop: "0.5rem" }}
+                  style={{
+                    width: "100%",
+                    marginTop: "0.5rem",
+                  }}
                   appearance="primary"
                   onClick={() => navigate(`/news/single/${item.id}`)}
                 >

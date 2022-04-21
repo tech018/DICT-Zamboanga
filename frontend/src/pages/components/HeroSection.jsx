@@ -40,10 +40,10 @@ const HeroSection = () => {
                   </h1>
                 </Col>
                 <Col xs={24}>
-                  <p style={{ marginLeft: "1rem", color: "whitesmoke" }}>
+                  <span style={{ marginLeft: "1rem", color: "whitesmoke" }}>
                     digitalcitiesph <sup>TM</sup> roadmap
                     <h1>ZAMBOANGA CITY</h1>
-                  </p>
+                  </span>
                 </Col>
               </Row>
             </Grid>

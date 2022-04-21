@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form, Col, Row, Grid, InputGroup, Input, Button } from "rsuite";
+import { Form, Panel, InputGroup, Input, Button, FlexboxGrid } from "rsuite";
 import VisibleIcon from "@rsuite/icons/Visible";
 import UnvisibleIcon from "@rsuite/icons/Unvisible";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../actions/userActions";
+
+const { Group, Control } = Form;
 
 const Login = () => {
   const [visible, setVisible] = useState(false);
@@ -22,7 +24,7 @@ const Login = () => {
       toast.error(error);
     }
     if (userInfo) {
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     }
   }, [error, userInfo, navigate]);
 
@@ -35,27 +37,31 @@ const Login = () => {
     dispatch(login(email, password));
   };
   return (
-    <div className="text-black default-width" style={{ padding: "2rem" }}>
-      <Grid>
-        <Row>
-          <Col xs={7}>
-            <Form>
-              <Form.Group controlId="name">
-                <Form.ControlLabel>Email</Form.ControlLabel>
-                <Form.Control
+    <div className="login-page  default-width">
+      <FlexboxGrid justify="center" style={{ margin: "3rem" }}>
+        <FlexboxGrid.Item colspan={12}>
+          <Panel
+            header={<h3 style={{ textAlign: "center" }}>Admin Login</h3>}
+            bordered
+          >
+            <Form fluid>
+              <Group controlId="name">
+                <Control
                   name="name"
+                  placeholder="Email"
                   onChange={(value) => setEmail(value)}
                 />
-              </Form.Group>
-              <Form.Group controlId="name">
-                <InputGroup inside>
+              </Group>
+              <Group controlId="name">
+                <InputGroup inside style={{ width: "100%" }}>
                   <Input
                     onChange={(value) => setPassword(value)}
                     type={visible ? "text" : "password"}
+                    placeholder="Password"
                   />
-                  <InputGroup.Button onClick={handleChange}>
+                  <Button onClick={handleChange}>
                     {visible ? <UnvisibleIcon /> : <VisibleIcon />}
-                  </InputGroup.Button>
+                  </Button>
                 </InputGroup>
                 {loading ? (
                   <Button appearance="primary" loading></Button>
@@ -68,11 +74,11 @@ const Login = () => {
                     Login
                   </Button>
                 )}
-              </Form.Group>
+              </Group>
             </Form>
-          </Col>
-        </Row>
-      </Grid>
+          </Panel>
+        </FlexboxGrid.Item>
+      </FlexboxGrid>
     </div>
   );
 };
