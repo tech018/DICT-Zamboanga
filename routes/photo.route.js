@@ -11,7 +11,7 @@ const { route } = require("express/lib/application");
 
 // Retrieve all Tutorials
 router.route("/").get(allPhotos).post(createPhoto);
-router.route("/single/:id").delete(tokenCheck, deletePhoto);
+router.route("/multiple/delete").post(tokenCheck, deletePhoto);
 router.route("/uploadphoto").post(tokenCheck, uploadFile);
 router.route("/new/photo").post(tokenCheck, createPhoto);
 

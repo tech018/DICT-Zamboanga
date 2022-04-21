@@ -77,7 +77,6 @@ const Photos = () => {
     dispatch(deletephoto(id));
   };
 
-  console.log(photos);
   return (
     <div className="default-width">
       <Meta title={`Photos`} />

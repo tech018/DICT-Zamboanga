@@ -11,7 +11,12 @@ const Card = ({ data }) => {
           style={{ marginTop: "1rem", marginBottom: "4rem" }}
         >
           {data.map((item) => (
-            <Col xs={8} sm={8} style={{ padding: "1rem" }}>
+            <Col
+              xs={8}
+              sm={8}
+              style={{ padding: "1rem" }}
+              key={item.creditNumber}
+            >
               <ScrollAnimation animateIn="animate__flipInY">
                 <Panel
                   shaded
@@ -24,7 +29,6 @@ const Card = ({ data }) => {
                     color: "black",
                     textAlign: "center",
                   }}
-                  key={item.creditNumber}
                 >
                   <Tag color="yellow">
                     <h1 style={{ marginTop: "1.2rem", color: "black" }}>

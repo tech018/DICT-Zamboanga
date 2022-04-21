@@ -78,43 +78,42 @@ export const upload = (formData) => async (dispatch, getState) => {
   }
 };
 
-export const createphoto =
-  (src, caption, category) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: NEW_PHOTO_REQUEST,
-      });
-      const {
-        userLogin: { userInfo },
-      } = getState();
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.accessToken}`,
-        },
-      };
-      const { data } = await axios.post(
-        `http://localhost:5000/api/photo/new/photo`,
-        { src, caption, category },
-        config
-      );
-      dispatch({
-        type: NEW_PHOTO_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: NEW_PHOTO_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+export const createphoto = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: NEW_PHOTO_REQUEST,
+    });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.accessToken}`,
+      },
+    };
+    const { data } = await axios.post(
+      `http://localhost:5000/api/photo/new/photo`,
+      {},
+      config
+    );
+    dispatch({
+      type: NEW_PHOTO_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_PHOTO_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 //delete photo
-export const deletephoto = (id) => async (dispatch, getState) => {
+export const deletephoto = (list) => async (dispatch, getState) => {
   try {
     dispatch({
       type: DELETE_PHOTO_REQUEST,
@@ -128,8 +127,9 @@ export const deletephoto = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.accessToken}`,
       },
     };
-    const { data } = await axios.delete(
-      `http://localhost:5000/api/photo/single/${id}`,
+    const { data } = await axios.post(
+      `http://localhost:5000/api/photo//multiple/delete`,
+      { list },
       config
     );
     dispatch({

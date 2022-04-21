@@ -27,21 +27,24 @@ const Testimonials = ({ testimonials }) => {
     <div className="animation-div">
       <Carousel responsive={responsive}>
         {testimonials.map((item) => (
-          <ScrollAnimation animateIn="animate__flipInY">
-            <div
-              style={{
-                color: "black",
-                marginTop: "4rem",
-                fontSize: "0.8rem",
-                paddingBottom: "2rem",
-              }}
-            >
-              <p>"{item.desc}"</p>
-              <h5>
-                <Tag color="red"> - {item.name}</Tag>
-              </h5>
-            </div>
-          </ScrollAnimation>
+          <div key={item.name}>
+            <ScrollAnimation animateIn="animate__flipInY">
+              <div
+                key={item.name}
+                style={{
+                  color: "black",
+                  marginTop: "4rem",
+                  fontSize: "0.8rem",
+                  paddingBottom: "2rem",
+                }}
+              >
+                <p>"{item.desc}"</p>
+                <h5>
+                  <Tag color="red"> - {item.name}</Tag>
+                </h5>
+              </div>
+            </ScrollAnimation>
+          </div>
         ))}
       </Carousel>
     </div>

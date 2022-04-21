@@ -57,7 +57,7 @@ const OurPartners = () => {
       ) : (
         <Carousel responsive={responsive}>
           {partners.map((item) => (
-            <div style={{ textAlign: "center", color: "black" }}>
+            <div style={{ textAlign: "center", color: "black" }} key={item.id}>
               <a href={item.link}>
                 <img
                   src={`/zamboanga/${item.image}`}
