@@ -14,6 +14,10 @@ import {
   DELETE_PHOTO_SUCCESS,
   DELETE_PHOTO_FAIL,
   DELETE_PHOTO_RESET,
+  UPDATE_PHOTO_REQUEST,
+  UPDATE_PHOTO_SUCCESS,
+  UPDATE_PHOTO_FAIL,
+  UPDATE_PHOTO_RESET,
 } from "../constants/photoConstant";
 
 export const allPhotoReducers = (state = { photos: [] }, action) => {
@@ -121,6 +125,36 @@ export const deletePhotoReducers = (state = { photo: {} }, action) => {
     case DELETE_PHOTO_RESET:
       return {
         photo: {},
+      };
+    default:
+      return state;
+  }
+};
+
+//update photo reducer
+
+export const updatePhotoReducers = (state = { photos: {} }, action) => {
+  switch (action.type) {
+    case UPDATE_PHOTO_REQUEST:
+      return {
+        loading: true,
+        success: false,
+        photos: {},
+      };
+    case UPDATE_PHOTO_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        photos: action.payload,
+      };
+    case UPDATE_PHOTO_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_PHOTO_RESET:
+      return {
+        photos: {},
       };
     default:
       return state;

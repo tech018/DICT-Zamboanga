@@ -44,6 +44,22 @@ const login = asyncHandler(async (req, res) => {
     });
 });
 
+const allUsers = asyncHandler(async (req, res) => {
+  const pageNumber = req.query.pageNumber;
+
+  try {
+    const user = await User.findAll({
+      limit: Number(pageNumber),
+    });
+    if (user) {
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+});
+
 module.exports = {
   login,
+  allUsers,
 };

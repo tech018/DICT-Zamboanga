@@ -6,11 +6,12 @@ const {
   createPhoto,
   uploadFile,
   deletePhoto,
+  updatePhoto,
 } = require("../controllers/photoControllers");
-const { route } = require("express/lib/application");
 
 // Retrieve all Tutorials
 router.route("/").get(allPhotos).post(createPhoto);
+router.route("/:id").put(tokenCheck, updatePhoto);
 router.route("/multiple/delete").post(tokenCheck, deletePhoto);
 router.route("/uploadphoto").post(tokenCheck, uploadFile);
 router.route("/new/photo").post(tokenCheck, createPhoto);
