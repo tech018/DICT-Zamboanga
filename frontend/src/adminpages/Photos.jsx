@@ -12,7 +12,12 @@ import {
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { createphoto, photolist, deletephoto } from "../actions/photoActions";
+import {
+  createphoto,
+  photolist,
+  deletephoto,
+  updatephoto,
+} from "../actions/photoActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -52,6 +57,7 @@ const Photos = () => {
   const [idList, setIdList] = useState([]);
   const [pcategory, setPcategpry] = useState("");
   const [pcaption, setPcaption] = useState("");
+  const [id, setId] = useState("");
 
   const deletePhoto = useSelector((state) => state.deletePhoto);
   const {
@@ -122,6 +128,7 @@ const Photos = () => {
 
   const handleUpdatePhoto = (id, src, caption) => {
     setUpdateModal(true);
+    setId(id);
   };
   return (
     <>
@@ -254,6 +261,9 @@ const Photos = () => {
         setPcategpry={setPcategpry}
         pcaption={pcaption}
         setPcaption={setPcaption}
+        updatephoto={updatephoto}
+        id={id}
+        toast={toast}
       />
     </>
   );

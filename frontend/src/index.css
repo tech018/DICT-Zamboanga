@@ -132,3 +132,21 @@ body {
     width: 100% !important;
   }
 }
+
+.custom-file-upload {
+  position: relative;
+  padding: 1rem;
+  font-family: calibri;
+  width: 34.3rem;
+  margin-top: 1rem;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border: 1px dashed rgb(250, 246, 246);
+  background-color: rgb(243, 237, 237);
+  cursor: pointer;
+}
+
+.custom-file-upload :hover {
+  background-color: #81ecec;
+  border: 2px solid #00cec9;
+}

@@ -9,6 +9,9 @@ import {
   NEW_PHOTO_FAIL,
   NEW_PHOTO_REQUEST,
   NEW_PHOTO_SUCCESS,
+  UPDATE_PHOTO_FAIL,
+  UPDATE_PHOTO_REQUEST,
+  UPDATE_PHOTO_SUCCESS,
   UPLOAD_PHOTO_FAIL,
   UPLOAD_PHOTO_REQUEST,
   UPLOAD_PHOTO_SUCCESS,
@@ -146,3 +149,38 @@ export const deletephoto = (list) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updatephoto =
+  (id, src, caption, category) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: UPDATE_PHOTO_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.accessToken}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:5000/api/photo/${id}`,
+        { src, caption, category },
+        config
+      );
+      dispatch({
+        type: UPDATE_PHOTO_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_PHOTO_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

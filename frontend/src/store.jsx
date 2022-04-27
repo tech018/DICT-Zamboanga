@@ -8,6 +8,7 @@ import {
   uploadPhotoReducers,
   newPhotoReducers,
   deletePhotoReducers,
+  updatePhotoReducers,
 } from "./reducers/photoReducers";
 //users
 import { loginReducers } from "./reducers/userReducers";
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   uploadPhoto: uploadPhotoReducers,
   newPhoto: newPhotoReducers,
   deletePhoto: deletePhotoReducers,
+  updatePhoto: updatePhotoReducers,
   //users
   userLogin: loginReducers,
   //contact

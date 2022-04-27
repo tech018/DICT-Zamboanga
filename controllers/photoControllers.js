@@ -97,9 +97,38 @@ const deletePhoto = asyncHandler(async (req, res) => {
   }
 });
 
+const updatePhoto = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const { src, caption, category } = req.body;
+  try {
+    if (!src)
+      return res.status(400).json({ message: "Image src is required!" });
+    if (!caption)
+      return res.status(400).json({ message: "Image title is required!" });
+    if (!category)
+      return res.status(400).json({ message: "Please select a category!" });
+    const photoupdate = await Photo.update(
+      { src, caption, category },
+      { where: { id } }
+    );
+    if (photoupdate) {
+      res.status(200).json({ message: `Successfully updated ${caption}` });
+    } else {
+      res
+        .status(404)
+        .json({
+          message: `Cannot be update ${caption} or the id is not found`,
+        });
+    }
+  } catch (error) {
+    res.status(500).json({ message: `Internal server error!` });
+  }
+});
+
 module.exports = {
   allPhotos,
   createPhoto,
   uploadFile,
   deletePhoto,
+  updatePhoto,
 };
