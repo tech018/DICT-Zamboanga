@@ -20,6 +20,9 @@ const SideNav = () => {
             <Link eventKey="2" className="rs-sidenav-item" to="/admin/photos">
               Photos
             </Link>
+            <Link eventKey="2" className="rs-sidenav-item" to="/admin/newsandevents">
+              News and Events
+            </Link>
           </Nav>
         </Sidenav.Body>
       </Sidenav>

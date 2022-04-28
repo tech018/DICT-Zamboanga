@@ -29,6 +29,7 @@ import Dashboard from "./adminpages/Dashboard";
 
 //adminPages
 import AdminPhotos from "./adminpages/Photos";
+import NewsEvents from "./adminpages/NewsEvents";
 
 const App = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -51,6 +52,7 @@ const App = () => {
                 <Routes>
                   <Route exact path="/" element={<Dashboard />} />
                   <Route path="/admin/photos" element={<AdminPhotos />} />
+                  <Route path="/admin/newsandevents" element={<NewsEvents />} />
                 </Routes>
               </Content>
               <Footer>
@@ -72,8 +74,8 @@ const App = () => {
             <Route path="/photo" element={<Photos />} />
             <Route path="/admin/photo/new" element={<NewPhoto />} />
             <Route path="/admin/contact/new" element={<NewContact />} />
-            <Route path="/news" element={<News />} />
             <Route path="/admin/news/create" element={<CreateNews />} />
+            <Route path="/news" element={<News />} />
             <Route path="/news/single/:id" element={<SingleNews />} />
             <Route path="*" element={<Home />} />
             <Route
