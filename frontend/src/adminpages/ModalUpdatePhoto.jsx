@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, InputPicker, Grid, Row, Col } from "rsuite";
+import {
+  Modal,
+  Button,
+  Form,
+  InputPicker,
+  Loader,
+  Grid,
+  Row,
+  Col,
+} from "rsuite";
 import { useSelector, useDispatch } from "react-redux";
 import { upload } from "../actions/photoActions";
 
@@ -22,39 +31,21 @@ const ModalUpdatePhoto = ({
   id,
   updateModal,
   handleUpdateClose,
-  pcaption,
-  setPcaption,
-  pcategory,
-  setPcategpry,
+  uploadPhotoRes,
   updatephoto,
-  toast,
+  successUploadPhoto,
+  loadingUploadPhoto,
+  loadingUpdatePhoto,
 }) => {
   const [src, setSrc] = useState("");
   const [caption, setCaption] = useState("");
   const [category, setCategory] = useState("");
 
-  const uploadPhoto = useSelector((state) => state.uploadPhoto);
-  const { loading, error, photo, success } = uploadPhoto;
-
-  const updatePhoto = useSelector((state) => state.updatePhoto);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    photo: updatedphoto,
-    success: successUpdate,
-  } = updatePhoto;
-
   useEffect(() => {
-    if (success) {
-      setSrc(photo.image);
+    if (successUploadPhoto) {
+      setSrc(uploadPhotoRes.image);
     }
-    if (successUpdate) {
-      toast.success(updatedphoto.message);
-    }
-    if (errorUpdate) {
-      toast.error(errorUpdate);
-    }
-  }, [success, photo, updatedphoto, errorUpdate]);
+  }, [uploadPhotoRes]);
 
   const dispatch = useDispatch();
 
@@ -81,39 +72,47 @@ const ModalUpdatePhoto = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Grid fluid>
-              <Row className="show-grid">
-                <Col xs={12}>
-                  <Form.Control
-                    name="name"
-                    autoComplete="off"
-                    placeholder="Name of Photo"
-                    onChange={(value) => setCaption(value)}
-                  />
-                </Col>
-                <Col xs={12}>
-                  <InputPicker
-                    style={{ marginLeft: "4rem" }}
-                    data={selectFields}
-                    placeholder="Select category"
-                    onChange={(file) => setCategory(file)}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={12}>
-                  <input
-                    className="custom-file-upload"
-                    accept="image/*"
-                    id="icon-button-file"
-                    type="file"
-                    onChange={handleUpload}
-                  />
-                </Col>
-              </Row>
-            </Grid>
-          </Form>
+          {loadingUpdatePhoto ? (
+            <Loader content="Loading..." />
+          ) : (
+            <Form>
+              <Grid fluid>
+                <Row className="show-grid">
+                  <Col xs={12}>
+                    <Form.Control
+                      name="name"
+                      autoComplete="off"
+                      placeholder="Name of Photo"
+                      onChange={(value) => setCaption(value)}
+                    />
+                  </Col>
+                  <Col xs={12}>
+                    <InputPicker
+                      style={{ marginLeft: "4rem" }}
+                      data={selectFields}
+                      placeholder="Select category"
+                      onChange={(file) => setCategory(file)}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    {loadingUploadPhoto ? (
+                      <Loader content="Loading..." />
+                    ) : (
+                      <input
+                        className="custom-file-upload text-black"
+                        accept="image/*"
+                        id="icon-button-file"
+                        type="file"
+                        onChange={handleUpload}
+                      />
+                    )}
+                  </Col>
+                </Row>
+              </Grid>
+            </Form>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button color="red" onClick={handleUpdate} appearance="primary">

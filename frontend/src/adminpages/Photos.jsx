@@ -17,6 +17,7 @@ import {
   photolist,
   deletephoto,
   updatephoto,
+  photo,
 } from "../actions/photoActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -55,8 +56,7 @@ const Photos = () => {
   const allPhoto = useSelector((state) => state.allPhoto);
   const { loading, error, photos } = allPhoto;
   const [idList, setIdList] = useState([]);
-  const [pcategory, setPcategpry] = useState("");
-  const [pcaption, setPcaption] = useState("");
+
   const [id, setId] = useState("");
 
   const deletePhoto = useSelector((state) => state.deletePhoto);
@@ -75,16 +75,43 @@ const Photos = () => {
     success: successNewPhoto,
   } = newPhoto;
 
+  const uploadPhoto = useSelector((state) => state.uploadPhoto);
+  const {
+    loading: loadingUploadPhoto,
+    error: errorUploadPhoto,
+    photo: uploadPhotoRes,
+    success: successUploadPhoto,
+  } = uploadPhoto;
+
+  const updatePhoto = useSelector((state) => state.updatePhoto);
+  const {
+    loading: loadingUpdatePhoto,
+    error: errorUpdatePhoto,
+    photos: updatedPhotoResponse,
+    success: successUpdatePhoto,
+  } = updatePhoto;
+
   useEffect(() => {
     dispatch(photolist(pageNumber, category, caption));
+    if (successUpdatePhoto) {
+      toast.success(updatedPhotoResponse.message);
+      handleUpdateClose();
+    }
     if (error) {
       toast.error(error);
+    }
+    if (errorUpdatePhoto) {
+      toast.error(errorUpdatePhoto);
+    }
+    if (errorUploadPhoto) {
+      toast.error(errorUploadPhoto);
     }
     if (errorNewPhoto) {
       toast.error(errorNewPhoto);
       dispatch({ type: NEW_PHOTO_RESET });
     }
     if (successNewPhoto) {
+      toast.success(photo.message);
       dispatch({ type: NEW_PHOTO_RESET });
     }
     if (successDelete) {
@@ -97,13 +124,18 @@ const Photos = () => {
     }
   }, [
     dispatch,
+    errorUpdatePhoto,
+    updatedPhotoResponse,
+    successUpdatePhoto,
     pageNumber,
+    photo,
     errorDelete,
     successDelete,
     photoDelete,
     category,
     errorNewPhoto,
     successNewPhoto,
+    errorUploadPhoto,
     caption,
     navigate,
     error,
@@ -184,7 +216,7 @@ const Photos = () => {
         </FlexboxGrid>
 
         <>
-          {loading ? (
+          {loading || loadingDelete || loadingNewPhoto ? (
             <Loader content="Loading..." />
           ) : (
             <>
@@ -257,13 +289,17 @@ const Photos = () => {
       <ModalUpdatePhoto
         handleUpdateClose={handleUpdateClose}
         updateModal={updateModal}
-        pcategory={pcategory}
-        setPcategpry={setPcategpry}
-        pcaption={pcaption}
-        setPcaption={setPcaption}
+        category={category}
+        pageNumber={pageNumber}
+        caption={caption}
         updatephoto={updatephoto}
         id={id}
         toast={toast}
+        dispatch={dispatch}
+        uploadPhotoRes={uploadPhotoRes}
+        successUploadPhoto={successUploadPhoto}
+        loadingUploadPhoto={loadingUploadPhoto}
+        loadingUpdatePhoto={loadingUpdatePhoto}
       />
     </>
   );
