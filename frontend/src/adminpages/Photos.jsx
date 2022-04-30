@@ -17,7 +17,7 @@ import {
   photolist,
   deletephoto,
   updatephoto,
-  photo,
+  upload,
 } from "../actions/photoActions";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -93,7 +93,11 @@ const Photos = () => {
   } = updatePhoto;
 
   useEffect(() => {
-    dispatch(photolist(pageNumber, category, caption));
+    if (userInfo) {
+      dispatch(photolist(pageNumber, category, caption));
+    } else {
+      navigate("/");
+    }
     if (successUpdatePhoto) {
       toast.success(updatedPhotoResponse.message);
       handleUpdateClose();
@@ -127,6 +131,7 @@ const Photos = () => {
     }
   }, [
     dispatch,
+    userInfo,
     errorUpdatePhoto,
     updatedPhotoResponse,
     successUpdatePhoto,
@@ -304,6 +309,7 @@ const Photos = () => {
         successUploadPhoto={successUploadPhoto}
         loadingUploadPhoto={loadingUploadPhoto}
         loadingUpdatePhoto={loadingUpdatePhoto}
+        upload={upload}
       />
     </>
   );

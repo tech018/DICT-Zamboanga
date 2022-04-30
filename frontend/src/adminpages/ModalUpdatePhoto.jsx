@@ -9,8 +9,7 @@ import {
   Row,
   Col,
 } from "rsuite";
-import { useSelector, useDispatch } from "react-redux";
-import { upload } from "../actions/photoActions";
+import { useDispatch } from "react-redux";
 
 const selectFields = [
   {
@@ -36,6 +35,7 @@ const ModalUpdatePhoto = ({
   successUploadPhoto,
   loadingUploadPhoto,
   loadingUpdatePhoto,
+  upload,
 }) => {
   const [src, setSrc] = useState("");
   const [caption, setCaption] = useState("");
@@ -45,7 +45,7 @@ const ModalUpdatePhoto = ({
     if (successUploadPhoto) {
       setSrc(uploadPhotoRes.image);
     }
-  }, [uploadPhotoRes]);
+  }, [uploadPhotoRes, successUploadPhoto]);
 
   const dispatch = useDispatch();
 
@@ -117,6 +117,7 @@ const ModalUpdatePhoto = ({
                     {src.length >= 1 && (
                       <>
                         <img
+                          alt={src}
                           style={{ width: "10rem", paddingTop: "1rem" }}
                           src={`/zamboanga/${src}`}
                         />
