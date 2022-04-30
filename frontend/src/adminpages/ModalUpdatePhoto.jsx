@@ -61,6 +61,7 @@ const ModalUpdatePhoto = ({
 
   const handleUpdate = () => {
     dispatch(updatephoto(id, src, caption, category));
+    setSrc("");
   };
 
   return (
@@ -107,6 +108,19 @@ const ModalUpdatePhoto = ({
                         type="file"
                         onChange={handleUpload}
                       />
+                    )}
+                  </Col>
+                </Row>
+                <Row>
+                  {" "}
+                  <Col xs={12}>
+                    {src.length >= 1 && (
+                      <>
+                        <img
+                          style={{ width: "10rem", paddingTop: "1rem" }}
+                          src={`/zamboanga/${src}`}
+                        />
+                      </>
                     )}
                   </Col>
                 </Row>

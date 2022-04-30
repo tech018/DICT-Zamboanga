@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import {
   NEW_PHOTO_RESET,
   DELETE_PHOTO_RESET,
+  UPDATE_PHOTO_RESET,
 } from "../constants/photoConstant";
 import ModalActions from "../adminpages/ModalActions";
 import ModalUpdatePhoto from "./ModalUpdatePhoto";
@@ -96,12 +97,14 @@ const Photos = () => {
     if (successUpdatePhoto) {
       toast.success(updatedPhotoResponse.message);
       handleUpdateClose();
+      dispatch({ type: UPDATE_PHOTO_RESET });
     }
     if (error) {
       toast.error(error);
     }
     if (errorUpdatePhoto) {
       toast.error(errorUpdatePhoto);
+      dispatch({ type: UPDATE_PHOTO_RESET });
     }
     if (errorUploadPhoto) {
       toast.error(errorUploadPhoto);
@@ -167,7 +170,7 @@ const Photos = () => {
       <div style={{ backgroundColor: "rgba(37, 37, 37, 0.219)" }}>
         <FlexboxGrid>
           <FlexboxGrid.Item
-            colspan={12}
+            colspan={14}
             style={{ paddingTop: "1rem", marginLeft: "1rem" }}
           >
             <RadioGroup
@@ -198,9 +201,10 @@ const Photos = () => {
               <Radio value="">All</Radio>
               <Radio value="Places">Places</Radio>
               <Radio value="Foods">Foods</Radio>
+              <Radio value="Events">Events</Radio>
             </RadioGroup>
           </FlexboxGrid.Item>
-          <FlexboxGrid.Item colspan={10}>
+          <FlexboxGrid.Item colspan={8}>
             <InputGroup
               style={{ marginTop: "1rem" }}
               inside
