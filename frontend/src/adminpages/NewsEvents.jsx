@@ -8,6 +8,7 @@ import {
   Button,
   ButtonToolbar,
   FlexboxGrid,
+  InputPicker,
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
 import { upload } from "../actions/photoActions";
@@ -29,6 +30,29 @@ import { UPLOAD_PHOTO_RESET } from "../constants/photoConstant";
 import { ModalNewsDelete } from "./ModalActions";
 import { useNavigate } from "react-router-dom";
 import UpdateNews from "./UpdateNews";
+
+const selectFields = [
+  {
+    label: "4 Items",
+    value: "4",
+  },
+  {
+    label: "10 Items",
+    value: "10",
+  },
+  {
+    label: "20 Items",
+    value: "20",
+  },
+  {
+    label: "100 Items",
+    value: "100",
+  },
+  {
+    label: "1000 Items",
+    value: "1000",
+  },
+];
 
 const NewsEvents = () => {
   const dispatch = useDispatch();
@@ -172,6 +196,13 @@ const NewsEvents = () => {
   };
   const handleClose = () => setShowModal(false);
 
+  const handleNextPage = () => {
+    setPage(currentPage + 1);
+  };
+  const handlePrevious = () => {
+    setPage(currentPage === 0 ? currentPage : currentPage - 1);
+  };
+
   return (
     <>
       <div style={{ backgroundColor: "rgba(37, 37, 37, 0.219)" }}>
@@ -288,6 +319,31 @@ const NewsEvents = () => {
             </>
           )}
         </>
+        <FlexboxGrid.Item colspan={24} style={{ paddingBottom: "1rem" }}>
+          {news.length > 0 && (
+            <>
+              <span className="text-black" style={{ padding: "1rem" }}>
+                Total News : {totalItems}
+              </span>
+              <Button
+                appearance="primary"
+                style={{ marginRight: "1rem" }}
+                onClick={handlePrevious}
+              >
+                Prev
+              </Button>
+              <Button appearance="primary" onClick={handleNextPage}>
+                Next
+              </Button>
+              <InputPicker
+                style={{ marginLeft: "1rem", width: "10rem" }}
+                data={selectFields}
+                placeholder={`${size} items`}
+                onChange={(file) => setSize(file)}
+              />
+            </>
+          )}
+        </FlexboxGrid.Item>
       </div>
       <ModalNewsDelete
         handleClose={handleClose}
