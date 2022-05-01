@@ -18,7 +18,7 @@ import {
 } from "../constants/photoConstant";
 
 export const photolist =
-  (pageNumber, category, caption) => async (dispatch) => {
+  (size, category, page, caption) => async (dispatch) => {
     try {
       dispatch({
         type: ALL_PHOTO_REQUEST,
@@ -29,7 +29,7 @@ export const photolist =
         },
       };
       const { data } = await axios.get(
-        `http://localhost:5000/api/photo?pageNumber=${pageNumber}&category=${category}&caption=${caption}`,
+        `http://localhost:5000/api/photo?size=${size}&category=${category}&page=${page}&caption=${caption}`,
         config
       );
       dispatch({

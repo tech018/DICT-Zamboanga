@@ -25,13 +25,16 @@ export const allPhotoReducers = (state = { photos: [] }, action) => {
     case ALL_PHOTO_REQUEST:
       return {
         loading: true,
-
+        totalItems: {},
+        currentPage: {},
         photos: [],
       };
     case ALL_PHOTO_SUCCESS:
       return {
         loading: false,
-        photos: action.payload,
+        photos: action.payload.photos,
+        totalItems: action.payload.totalItems,
+        currentPage: action.payload.currentPage,
       };
     case ALL_PHOTO_FAIL:
       return {

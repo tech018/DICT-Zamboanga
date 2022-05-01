@@ -4,26 +4,45 @@ const Photo = db.photos;
 const Op = db.Sequelize.Op;
 // Retrieve all Tutorials from the database.
 
-const allPhotos = asyncHandler(async (req, res) => {
-  const category = req.query.category;
-  const pageNumber = req.query.pageNumber;
-  const title = req.query.caption;
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
 
-  try {
-    const photos = await Photo.findAll({
-      where: {
-        category: { [Op.like]: `%${category}%` },
-        caption: { [Op.like]: `%${title}%` },
-      },
-      limit: Number(pageNumber),
-      order: [["updatedAt", "DESC"]],
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: photos } = data;
+
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { totalItems, photos, totalPages, currentPage };
+};
+
+const allPhotos = asyncHandler(async (req, res) => {
+  const { page, size, category, caption } = req.query;
+
+  const { limit, offset } = getPagination(page, size);
+
+  Photo.findAndCountAll({
+    where: {
+      category: { [Op.like]: `%${category}%` },
+      caption: { [Op.like]: `%${caption}%` },
+    },
+    limit,
+    offset,
+  })
+    .then((data) => {
+      const response = getPagingData(data, page, limit);
+      res.send(response);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
     });
-    if (photos) {
-      res.status(200).json(photos);
-    }
-  } catch (error) {
-    res.status(500).json({ message: error });
-  }
 });
 
 const createPhoto = asyncHandler(async (req, res) => {
@@ -114,11 +133,9 @@ const updatePhoto = asyncHandler(async (req, res) => {
     if (photoupdate) {
       res.status(200).json({ message: `Successfully updated ${caption}` });
     } else {
-      res
-        .status(404)
-        .json({
-          message: `Cannot be update ${caption} or the id is not found`,
-        });
+      res.status(404).json({
+        message: `Cannot be update ${caption} or the id is not found`,
+      });
     }
   } catch (error) {
     res.status(500).json({ message: `Internal server error!` });
