@@ -14,20 +14,36 @@ const SideNav = () => {
       <Sidenav defaultOpenKeys={["3", "4"]} activeKey="1">
         <Sidenav.Body>
           <Nav>
-            <Link eventKey="1" className="rs-sidenav-item" to="/">
+            <Link
+              eventKey="1"
+              style={{ textDecoration: "none" }}
+              className="rs-sidenav-item"
+              to="/"
+            >
               Dashboard
             </Link>
-            <Link eventKey="2" className="rs-sidenav-item" to="/admin/photos">
+            <Link
+              eventKey="2"
+              style={{ textDecoration: "none" }}
+              className="rs-sidenav-item"
+              to="/admin/photos"
+            >
               Photos
             </Link>
             <Link
               eventKey="3"
               className="rs-sidenav-item"
               to="/admin/newsandevents"
+              style={{ textDecoration: "none" }}
             >
               News and Events
             </Link>
-            <Link eventKey="4" className="rs-sidenav-item" to="/admin/contacts">
+            <Link
+              eventKey="4"
+              style={{ textDecoration: "none" }}
+              className="rs-sidenav-item"
+              to="/admin/contacts"
+            >
               Contact
             </Link>
           </Nav>
