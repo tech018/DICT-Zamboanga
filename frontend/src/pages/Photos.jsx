@@ -8,7 +8,7 @@ import {
   RadioGroup,
   Radio,
   Button,
-  Loader,
+  InputPicker,
   InputGroup,
   Input,
   IconButton,
@@ -26,10 +26,34 @@ import { toast } from "react-toastify";
 import ScrollAnimation from "react-animate-on-scroll";
 import Meta from "./components/Meta";
 
+const selectFields = [
+  {
+    label: "4 Items",
+    value: "4",
+  },
+  {
+    label: "10 Items",
+    value: "10",
+  },
+  {
+    label: "20 Items",
+    value: "20",
+  },
+  {
+    label: "100 Items",
+    value: "100",
+  },
+  {
+    label: "1000 Items",
+    value: "1000",
+  },
+];
+
 const Photos = () => {
   const [category, setCategory] = useState("");
-  const [pageNumber, setPageNumber] = useState(6);
+  const [size, setSize] = useState(6);
   const [caption, setCaption] = useState("");
+  const [page, setPage] = useState(0);
 
   const navigate = useNavigate();
 
@@ -37,7 +61,7 @@ const Photos = () => {
   const { Paragraph } = Placeholder;
 
   const allPhoto = useSelector((state) => state.allPhoto);
-  const { loading, error, photos } = allPhoto;
+  const { loading, error, photos, currentPage, totalItems } = allPhoto;
 
   const deletePhoto = useSelector((state) => state.deletePhoto);
   const {
@@ -51,7 +75,7 @@ const Photos = () => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch(photolist(pageNumber, category, caption));
+    dispatch(photolist(size, category, page, caption));
     if (success) {
       toast.success(photoDelete.message);
       dispatch({ type: DELETE_PHOTO_RESET });
@@ -61,11 +85,12 @@ const Photos = () => {
     }
   }, [
     dispatch,
-    pageNumber,
+    size,
     category,
     caption,
     success,
     photoDelete,
+    page,
     errorDelete,
   ]);
 
@@ -75,6 +100,13 @@ const Photos = () => {
 
   const handleDelete = (id) => {
     dispatch(deletephoto(id));
+  };
+
+  const handleNextPage = () => {
+    setPage(currentPage + 1);
+  };
+  const handlePrevious = () => {
+    setPage(currentPage === 0 ? currentPage : currentPage - 1);
   };
 
   return (
@@ -89,7 +121,7 @@ const Photos = () => {
                   <div style={{ marginTop: "1.5rem" }}>
                     <Grid>
                       <Row>
-                        <Col xs={8}>
+                        <Col xs={10}>
                           <RadioGroup
                             name="radioList"
                             value={category}
@@ -114,9 +146,10 @@ const Photos = () => {
                             <Radio value="">All</Radio>
                             <Radio value="Places">Places</Radio>
                             <Radio value="Foods">Foods</Radio>
+                            <Radio value="Events">Events</Radio>
                           </RadioGroup>
                         </Col>
-                        <Col xs={userInfo ? 13 : 16}>
+                        <Col xs={14}>
                           <div style={{ marginTop: "1rem" }}>
                             <InputGroup
                               inside
@@ -208,14 +241,29 @@ const Photos = () => {
           </Col>
           <Col xs={24}>
             <div style={{ margin: "1rem" }}>
-              <Button
-                color="yellow"
-                appearance="primary"
-                style={{ display: "block", margin: "auto" }}
-                onClick={() => setPageNumber(pageNumber + 1)}
-              >
-                {loading ? <Loader content="Loading..." /> : "Show more"}
-              </Button>
+              {photos.length > 0 && (
+                <>
+                  <span className="text-black" style={{ padding: "1rem" }}>
+                    Total Photos : {totalItems}
+                  </span>
+                  <Button
+                    appearance="primary"
+                    style={{ marginRight: "1rem" }}
+                    onClick={handlePrevious}
+                  >
+                    Prev
+                  </Button>
+                  <Button appearance="primary" onClick={handleNextPage}>
+                    Next
+                  </Button>
+                  <InputPicker
+                    style={{ marginLeft: "1rem", width: "10rem" }}
+                    data={selectFields}
+                    placeholder={`${size} items`}
+                    onChange={(file) => setSize(file)}
+                  />
+                </>
+              )}
             </div>
           </Col>
         </Row>

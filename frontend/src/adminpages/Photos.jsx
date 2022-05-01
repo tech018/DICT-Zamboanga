@@ -333,6 +333,7 @@ const Photos = () => {
                       appearance="primary"
                       style={{ marginRight: "1rem" }}
                       onClick={handlePrevious}
+                      disabled={page === 0}
                     >
                       Prev
                     </Button>

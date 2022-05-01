@@ -14,14 +14,21 @@ const SideNav = () => {
       <Sidenav defaultOpenKeys={["3", "4"]} activeKey="1">
         <Sidenav.Body>
           <Nav>
-            <Link eventKey="2" className="rs-sidenav-item" to="/">
+            <Link eventKey="1" className="rs-sidenav-item" to="/">
               Dashboard
             </Link>
             <Link eventKey="2" className="rs-sidenav-item" to="/admin/photos">
               Photos
             </Link>
-            <Link eventKey="2" className="rs-sidenav-item" to="/admin/newsandevents">
+            <Link
+              eventKey="3"
+              className="rs-sidenav-item"
+              to="/admin/newsandevents"
+            >
               News and Events
+            </Link>
+            <Link eventKey="4" className="rs-sidenav-item" to="/admin/contacts">
+              Contact
             </Link>
           </Nav>
         </Sidenav.Body>

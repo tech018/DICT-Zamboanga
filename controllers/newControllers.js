@@ -24,13 +24,18 @@ const allNews = asyncHandler(async (req, res) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  News.findAndCountAll({ where: condition, limit, offset })
+  News.findAndCountAll({
+    where: condition,
+    limit,
+    offset,
+    order: [["createdAt", "DESC"]],
+  })
     .then((data) => {
       const response = getPagingData(data, page, limit);
-      res.send(response);
+      res.json(response);
     })
     .catch((err) => {
-      res.status(500).send({
+      res.status(500).json({
         message:
           err.message || "Some error occurred while retrieving tutorials.",
       });

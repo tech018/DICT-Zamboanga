@@ -16,6 +16,8 @@ import { loginReducers } from "./reducers/userReducers";
 import {
   newContactReducers,
   allContactReducers,
+  deleteContactReducers,
+  updateContactReducers,
 } from "./reducers/contactReducers";
 
 //news
@@ -38,6 +40,8 @@ const reducer = combineReducers({
   //contact
   newContact: newContactReducers,
   allContact: allContactReducers,
+  deleteContact: deleteContactReducers,
+  updateContact: updateContactReducers,
 
   //news
   createNews: createNewsReducers,

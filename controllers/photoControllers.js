@@ -32,6 +32,7 @@ const allPhotos = asyncHandler(async (req, res) => {
     },
     limit,
     offset,
+    order: [["createdAt", "DESC"]],
   })
     .then((data) => {
       const response = getPagingData(data, page, limit);
