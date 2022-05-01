@@ -262,7 +262,7 @@ const Photos = () => {
 
         <>
           {loading || loadingDelete || loadingNewPhoto ? (
-            <Loader content="Loading..." />
+            <Loader content="Please wait..." />
           ) : (
             <FlexboxGrid style={{ paddingBottom: "1rem" }}>
               <FlexboxGrid.Item colspan={24}>

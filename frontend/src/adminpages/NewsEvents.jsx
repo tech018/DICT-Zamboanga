@@ -167,7 +167,7 @@ const NewsEvents = () => {
 
         <>
           {loading || loadingCreateNews || loadingDelete ? (
-            <Loader content="Loading..." />
+            <Loader content="Please wait..." />
           ) : (
             <>
               {news.map((item) => (
