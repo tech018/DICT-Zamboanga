@@ -3,7 +3,6 @@ import {
   Panel,
   Loader,
   RadioGroup,
-  Radio,
   InputGroup,
   Input,
   Button,
@@ -11,24 +10,38 @@ import {
   FlexboxGrid,
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
-import { createnews, newslist, deletenews } from "../actions/newsActions";
+import { upload } from "../actions/photoActions";
+import { Markup } from "interweave";
+import {
+  createnews,
+  newslist,
+  deletenews,
+  updatenews,
+} from "../actions/newsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { NEW_NEWS_RESET, DELETE_NEWS_RESET } from "../constants/newConstants";
+import {
+  NEW_NEWS_RESET,
+  DELETE_NEWS_RESET,
+  UPDATE_NEWS_RESET,
+} from "../constants/newConstants";
+import { UPLOAD_PHOTO_RESET } from "../constants/photoConstant";
 import { ModalNewsDelete } from "./ModalActions";
 import { useNavigate } from "react-router-dom";
+import UpdateNews from "./UpdateNews";
 
 const NewsEvents = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [idList, setIdList] = useState([]);
-  const [caption, setCaption] = useState("");
-  const [updateModal, setUpdateModal] = useState(false);
+  const [updateDrawer, setUpdateDrawer] = useState(false);
   const [id, setId] = useState("");
   const [size, setSize] = useState(3);
   const [page, setPage] = useState(0);
   const [title, setTitle] = useState("");
+  const [drawerTitle, setDrawerTitle] = useState("");
+  const [src, setSrc] = useState("");
 
   const allNews = useSelector((state) => state.allNews);
   const { loading, error, news, totalItems, currentPage } = allNews;
@@ -51,6 +64,22 @@ const NewsEvents = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const uploadPhoto = useSelector((state) => state.uploadPhoto);
+  const {
+    loading: loadingUploadPhoto,
+    error: errorUploadPhoto,
+    photo: uploadPhotoRes,
+    success: successUploadPhoto,
+  } = uploadPhoto;
+
+  const updateNews = useSelector((state) => state.updateNews);
+  const {
+    loading: loadingUpdateNews,
+    error: errorUpdateNews,
+    news: updateNewsRes,
+    success: successUpdateNews,
+  } = updateNews;
 
   useEffect(() => {
     if (userInfo) {
@@ -76,10 +105,29 @@ const NewsEvents = () => {
     }
     if (errorDelete) {
       toast.error(errorDelete);
+      dispatch({ type: DELETE_NEWS_RESET });
+    }
+    if (successUploadPhoto) {
+      setSrc(uploadPhotoRes.image);
+    }
+    if (errorUploadPhoto) {
+      toast.error(errorUploadPhoto);
+      dispatch({ type: UPLOAD_PHOTO_RESET });
+    }
+    if (errorUpdateNews) {
+      toast.error(errorUpdateNews);
+      dispatch({ type: UPDATE_NEWS_RESET });
+    }
+    if (successUpdateNews) {
+      toast.success(updateNewsRes.message);
+      dispatch({ type: UPDATE_NEWS_RESET });
     }
   }, [
     userInfo,
+    successUpdateNews,
+    updateNewsRes,
     navigate,
+    errorUpdateNews,
     page,
     size,
     title,
@@ -91,6 +139,9 @@ const NewsEvents = () => {
     newsDelete,
     successDelete,
     errorDelete,
+    successUploadPhoto,
+    uploadPhotoRes,
+    errorUploadPhoto,
   ]);
 
   const handleOpen = () => {
@@ -114,9 +165,10 @@ const NewsEvents = () => {
     }
   };
 
-  const handleUpdatePhoto = (id, src, caption) => {
-    setUpdateModal(true);
+  const handleUpdateNews = (id, newsTitle) => {
+    setUpdateDrawer(true);
     setId(id);
+    setDrawerTitle(newsTitle);
   };
   const handleClose = () => setShowModal(false);
 
@@ -154,8 +206,8 @@ const NewsEvents = () => {
             <InputGroup
               style={{ marginTop: "1rem" }}
               inside
-              value={caption}
-              onChange={(e) => setCaption(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             >
               <Input placeholder="search by title" />
               <InputGroup.Button disabled>
@@ -166,7 +218,10 @@ const NewsEvents = () => {
         </FlexboxGrid>
 
         <>
-          {loading || loadingCreateNews || loadingDelete ? (
+          {loading ||
+          loadingCreateNews ||
+          loadingDelete ||
+          loadingUpdateNews ? (
             <Loader content="Please wait..." />
           ) : (
             <>
@@ -177,8 +232,9 @@ const NewsEvents = () => {
                   bodyFill
                   style={{
                     display: "inline-block",
-                    width: "30%",
+                    width: "18rem",
                     margin: "1rem",
+                    height: "25rem",
                     color: "black",
                   }}
                 >
@@ -188,17 +244,15 @@ const NewsEvents = () => {
                       marginLeft: "auto",
                       marginRight: "auto",
                       display: "block",
+                      width: "15rem",
+                      height: "15rem",
                     }}
                     alt="sampleimage"
                   />
-                  <Panel
-                    style={{ textAlign: "center" }}
-                    header={item.tile}
-                  ></Panel>
-                  <Panel
-                    style={{ textAlign: "center" }}
-                    header={item.content}
-                  ></Panel>
+                  <Panel style={{ textAlign: "center" }} header={item.title}>
+                    <Markup className="text-black" content={item.content} />
+                  </Panel>
+
                   <div style={{ padding: "1rem" }}>
                     <ButtonToolbar>
                       <input
@@ -208,9 +262,7 @@ const NewsEvents = () => {
                       />
 
                       <svg
-                        // onClick={() =>
-                        //   handleUpdatePhoto(item.id, item.src, item.caption)
-                        // }
+                        onClick={() => handleUpdateNews(item.id, item.title)}
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
                         fill="none"
@@ -242,6 +294,17 @@ const NewsEvents = () => {
         showModal={showModal}
         deletenews={deletenews}
         idList={idList}
+      />
+      <UpdateNews
+        id={id}
+        setUpdateDrawer={setUpdateDrawer}
+        updateDrawer={updateDrawer}
+        drawerTitle={drawerTitle}
+        upload={upload}
+        dispatch={dispatch}
+        loadingUploadPhoto={loadingUploadPhoto}
+        src={src}
+        updatenews={updatenews}
       />
     </>
   );

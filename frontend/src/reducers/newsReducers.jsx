@@ -14,6 +14,10 @@ import {
   SINGLE_NEWS_REQUEST,
   SINGLE_NEWS_RESET,
   SINGLE_NEWS_SUCCESS,
+  UPDATE_NEWS_FAIL,
+  UPDATE_NEWS_REQUEST,
+  UPDATE_NEWS_RESET,
+  UPDATE_NEWS_SUCCESS,
 } from "../constants/newConstants";
 
 export const createNewsReducers = (state = { news: {} }, action) => {
@@ -117,6 +121,34 @@ export const deleteNewsReducers = (state = { news: {} }, action) => {
         error: action.payload,
       };
     case DELETE_NEWS_RESET:
+      return {
+        news: {},
+      };
+    default:
+      return state;
+  }
+};
+
+export const updateNewsReducers = (state = { news: {} }, action) => {
+  switch (action.type) {
+    case UPDATE_NEWS_REQUEST:
+      return {
+        loading: true,
+        success: false,
+        news: {},
+      };
+    case UPDATE_NEWS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        news: action.payload,
+      };
+    case UPDATE_NEWS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_NEWS_RESET:
       return {
         news: {},
       };

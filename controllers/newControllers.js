@@ -93,7 +93,7 @@ const updateNews = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const { title, content, picture } = req.body;
   try {
-    if (!src) return title.status(400).json({ message: "Title is required!" });
+    if (!title) return res.status(400).json({ message: "Title is required!" });
     if (!content)
       return res.status(400).json({ message: "content is required!" });
     if (!picture)

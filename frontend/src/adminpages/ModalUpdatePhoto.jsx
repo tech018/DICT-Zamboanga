@@ -106,6 +106,7 @@ const ModalUpdatePhoto = ({
                         accept="image/*"
                         id="icon-button-file"
                         type="file"
+                        value={src}
                         onChange={handleUpload}
                       />
                     )}

@@ -24,6 +24,7 @@ import {
   allNewsReducers,
   singleNewsReducers,
   deleteNewsReducers,
+  updateNewsReducers,
 } from "./reducers/newsReducers";
 const reducer = combineReducers({
   //photo
@@ -43,6 +44,7 @@ const reducer = combineReducers({
   allNews: allNewsReducers,
   singleNews: singleNewsReducers,
   deleteNews: deleteNewsReducers,
+  updateNews: updateNewsReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

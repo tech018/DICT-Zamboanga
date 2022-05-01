@@ -12,6 +12,9 @@ import {
   DELETE_NEWS_REQUEST,
   DELETE_NEWS_SUCCESS,
   DELETE_NEWS_FAIL,
+  UPDATE_NEWS_REQUEST,
+  UPDATE_NEWS_SUCCESS,
+  UPDATE_NEWS_FAIL,
 } from "../constants/newConstants";
 
 export const newslist = (page, size, title) => async (dispatch) => {
@@ -140,3 +143,38 @@ export const deletenews = (list) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updatenews =
+  (id, picture, content, title) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: UPDATE_NEWS_REQUEST,
+      });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.accessToken}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:5000/api/news/${id}`,
+        { picture, content, title },
+        config
+      );
+      dispatch({
+        type: UPDATE_NEWS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_NEWS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
