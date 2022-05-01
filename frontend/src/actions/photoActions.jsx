@@ -131,7 +131,7 @@ export const deletephoto = (list) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.post(
-      `http://localhost:5000/api/photo//multiple/delete`,
+      `http://localhost:5000/api/photo/multiple/delete`,
       { list },
       config
     );

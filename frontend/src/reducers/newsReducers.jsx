@@ -49,6 +49,8 @@ export const allNewsReducers = (state = { news: [] }, action) => {
     case ALL_NEWS_REQUEST:
       return {
         loading: true,
+        totalItems: {},
+        currentPage: {},
         news: [],
       };
     case ALL_NEWS_SUCCESS:

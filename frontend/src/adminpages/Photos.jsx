@@ -27,7 +27,7 @@ import {
   DELETE_PHOTO_RESET,
   UPDATE_PHOTO_RESET,
 } from "../constants/photoConstant";
-import ModalActions from "../adminpages/ModalActions";
+import { ModalActions } from "../adminpages/ModalActions";
 import ModalUpdatePhoto from "./ModalUpdatePhoto";
 
 const selectFields = [
@@ -77,6 +77,7 @@ const Photos = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 

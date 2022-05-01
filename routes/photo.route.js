@@ -10,7 +10,7 @@ const {
 } = require("../controllers/photoControllers");
 
 // Retrieve all Tutorials
-router.route("/").get(allPhotos).post(createPhoto);
+router.route("/").get(allPhotos).post(tokenCheck, createPhoto);
 router.route("/:id").put(tokenCheck, updatePhoto);
 router.route("/multiple/delete").post(tokenCheck, deletePhoto);
 router.route("/uploadphoto").post(tokenCheck, uploadFile);

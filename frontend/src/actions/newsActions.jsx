@@ -43,7 +43,7 @@ export const newslist = (page, size, title) => async (dispatch) => {
   }
 };
 
-export const createnews = (news) => async (dispatch, getState) => {
+export const createnews = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: NEW_NEWS_REQUEST,
@@ -59,7 +59,7 @@ export const createnews = (news) => async (dispatch, getState) => {
     };
     const { data } = await axios.post(
       `http://localhost:5000/api/news`,
-      { news },
+      {},
       config
     );
     dispatch({
@@ -107,7 +107,7 @@ export const single = (id) => async (dispatch) => {
   }
 };
 //delete news
-export const deletenews = (id) => async (dispatch, getState) => {
+export const deletenews = (list) => async (dispatch, getState) => {
   try {
     dispatch({
       type: DELETE_NEWS_REQUEST,
@@ -121,8 +121,9 @@ export const deletenews = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.accessToken}`,
       },
     };
-    const { data } = await axios.delete(
-      `http://localhost:5000/api/news/single/${id}`,
+    const { data } = await axios.post(
+      `http://localhost:5000/api/news/multiple/delete`,
+      { list },
       config
     );
     dispatch({

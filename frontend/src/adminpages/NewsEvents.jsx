@@ -11,55 +11,120 @@ import {
   FlexboxGrid,
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
-import {
-    createnews,
-    newslist,
-    deletenews,
-  } from "../actions/newsActions";
-  import { useNavigate } from "react-router-dom";
+import { createnews, newslist, deletenews } from "../actions/newsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import dict from '../images/dict.png'
+import { NEW_NEWS_RESET, DELETE_NEWS_RESET } from "../constants/newConstants";
+import { ModalNewsDelete } from "./ModalActions";
+import { useNavigate } from "react-router-dom";
 
 const NewsEvents = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [idList, setIdList] = useState([]);
   const [caption, setCaption] = useState("");
-  const allNews = useSelector((state) => state.allNews);
-  const { loading, error, news } = allNews;
   const [updateModal, setUpdateModal] = useState(false);
   const [id, setId] = useState("");
+  const [size, setSize] = useState(3);
+  const [page, setPage] = useState(0);
+  const [title, setTitle] = useState("");
 
-    const handleOpen = () => {
+  const allNews = useSelector((state) => state.allNews);
+  const { loading, error, news, totalItems, currentPage } = allNews;
+
+  const createNews = useSelector((state) => state.createNews);
+  const {
+    loading: loadingCreateNews,
+    error: errorCreateNews,
+    news: createNewsRes,
+    success: successCreateNews,
+  } = createNews;
+
+  const deleteNews = useSelector((state) => state.deleteNews);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    news: newsDelete,
+    success: successDelete,
+  } = deleteNews;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(newslist(page, size, title));
+    } else {
+      navigate("/");
+    }
+
+    if (error) {
+      toast.error(error);
+    }
+    if (successCreateNews) {
+      toast.success(createNewsRes.message);
+      dispatch({ type: NEW_NEWS_RESET });
+    }
+    if (errorCreateNews) {
+      toast.error(errorCreateNews);
+      dispatch({ type: NEW_NEWS_RESET });
+    }
+    if (successDelete) {
+      toast.success(newsDelete.message);
+      dispatch({ type: DELETE_NEWS_RESET });
+    }
+    if (errorDelete) {
+      toast.error(errorDelete);
+    }
+  }, [
+    userInfo,
+    navigate,
+    page,
+    size,
+    title,
+    dispatch,
+    createNewsRes,
+    successCreateNews,
+    errorCreateNews,
+    error,
+    newsDelete,
+    successDelete,
+    errorDelete,
+  ]);
+
+  const handleOpen = () => {
     if (idList.length <= 0) {
       toast.error("Please select one or more items");
     } else {
       setShowModal(true);
     }
   };
-    
-    const handleCreate = (e) => {
-        e.preventDefault();
-        dispatch(createnews());
-      };
 
-    const handleSelectToDelete = (id, e) => {
-        if (e.target.checked) {
-          let x = idList;
-          x.push(id);
-          setIdList(x);
-        }
-      };
-    
-    const handleUpdatePhoto = (id, src, caption) => {
-        setUpdateModal(true);
-        setId(id);
-      };
+  const handleCreate = (e) => {
+    e.preventDefault();
+    dispatch(createnews());
+  };
 
-    return (<><div style={{ backgroundColor: "rgba(37, 37, 37, 0.219)" }}>        
-    <FlexboxGrid>
-        <FlexboxGrid.Item
+  const handleSelectToDelete = (id, e) => {
+    if (e.target.checked) {
+      let x = idList;
+      x.push(id);
+      setIdList(x);
+    }
+  };
+
+  const handleUpdatePhoto = (id, src, caption) => {
+    setUpdateModal(true);
+    setId(id);
+  };
+  const handleClose = () => setShowModal(false);
+
+  return (
+    <>
+      <div style={{ backgroundColor: "rgba(37, 37, 37, 0.219)" }}>
+        <FlexboxGrid>
+          <FlexboxGrid.Item
             colspan={12}
             style={{ paddingTop: "1rem", marginLeft: "1rem" }}
           >
@@ -83,7 +148,7 @@ const NewsEvents = () => {
               >
                 Delete
               </Button>
-              </RadioGroup>
+            </RadioGroup>
           </FlexboxGrid.Item>
           <FlexboxGrid.Item colspan={10}>
             <InputGroup
@@ -98,46 +163,47 @@ const NewsEvents = () => {
               </InputGroup.Button>
             </InputGroup>
           </FlexboxGrid.Item>
-    </FlexboxGrid>
+        </FlexboxGrid>
 
-    <>
-          {loading ? (
+        <>
+          {loading || loadingCreateNews || loadingDelete ? (
             <Loader content="Loading..." />
           ) : (
             <>
+              {news.map((item) => (
                 <Panel
                   shaded
                   bordered
                   bodyFill
                   style={{
                     display: "inline-block",
-                    width: '30%',
-                      margin: "1rem",
-                      color: "black",
+                    width: "30%",
+                    margin: "1rem",
+                    color: "black",
                   }}
                 >
                   <img
-                    src={dict}
+                    src={`/zamboanga/${item.picture}`}
                     style={{
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                    display: 'block'
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      display: "block",
                     }}
                     alt="sampleimage"
                   />
                   <Panel
                     style={{ textAlign: "center" }}
-                    header="SAMPLE TITLE"
+                    header={item.tile}
                   ></Panel>
-                   <Panel
+                  <Panel
                     style={{ textAlign: "center" }}
-                    header="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+                    header={item.content}
                   ></Panel>
                   <div style={{ padding: "1rem" }}>
                     <ButtonToolbar>
                       <input
                         type="checkbox"
-                        // onChange={(e) => handleSelectToDelete(item.id, e)}
+                        onChange={(e) => handleSelectToDelete(item.id, e)}
                         style={{ cursor: "pointer" }}
                       />
 
@@ -166,9 +232,18 @@ const NewsEvents = () => {
                     </ButtonToolbar>
                   </div>
                 </Panel>
+              ))}
             </>
           )}
         </>
-    </div></>);
-}
+      </div>
+      <ModalNewsDelete
+        handleClose={handleClose}
+        showModal={showModal}
+        deletenews={deletenews}
+        idList={idList}
+      />
+    </>
+  );
+};
 export default NewsEvents;

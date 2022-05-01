@@ -38,16 +38,10 @@ const allNews = asyncHandler(async (req, res) => {
 });
 
 const createNews = asyncHandler(async (req, res) => {
-  const { title, outputcontent: content, picture } = req.body.news;
-  if (!title)
-    return res.status(400).json({ message: "News titile is required" });
-  if (!content) return res.status(400).json({ message: "content is required" });
-  if (!picture) return res.status(400).json({ message: "Picture is required" });
-
   const news = {
-    title,
-    content,
-    picture,
+    title: "New news",
+    content: "New content for new news",
+    picture: "sampleimage.jpg",
   };
   try {
     const createnews = await News.create(news);
@@ -76,11 +70,13 @@ const findOne = asyncHandler(async (req, res) => {
 });
 
 const deleteNews = asyncHandler(async (req, res) => {
-  const id = req.params.id;
+  const { list } = req.body;
 
   try {
+    if (list.length <= 0)
+      return res.status(400).json({ message: "no selected photos" });
     const news = await News.destroy({
-      where: { id: id },
+      where: { id: list },
     });
 
     if (news) {
@@ -93,9 +89,36 @@ const deleteNews = asyncHandler(async (req, res) => {
   }
 });
 
+const updateNews = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const { title, content, picture } = req.body;
+  try {
+    if (!src) return title.status(400).json({ message: "Title is required!" });
+    if (!content)
+      return res.status(400).json({ message: "content is required!" });
+    if (!picture)
+      return res.status(400).json({ message: "picture is required" });
+
+    const newsupdate = await News.update(
+      { title, content, picture },
+      { where: { id } }
+    );
+    if (newsupdate) {
+      res.status(200).json({ message: `Successfully updated ${title}` });
+    } else {
+      res.status(404).json({
+        message: `Cannot be update ${title} or the id is not found`,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ message: `Internal server error!` });
+  }
+});
+
 module.exports = {
   allNews,
   createNews,
   findOne,
   deleteNews,
+  updateNews,
 };
