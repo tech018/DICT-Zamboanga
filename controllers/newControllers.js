@@ -40,7 +40,7 @@ const allNews = asyncHandler(async (req, res) => {
 const createNews = asyncHandler(async (req, res) => {
   const news = {
     title: "New news",
-    content: "New content for new news",
+    content: "<span>New content for new news</span>",
     picture: "sampleimage.jpg",
   };
   try {
