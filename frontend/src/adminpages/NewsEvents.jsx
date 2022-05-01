@@ -328,11 +328,16 @@ const NewsEvents = () => {
               <Button
                 appearance="primary"
                 style={{ marginRight: "1rem" }}
+                disabled={page === 0}
                 onClick={handlePrevious}
               >
                 Prev
               </Button>
-              <Button appearance="primary" onClick={handleNextPage}>
+              <Button
+                disabled={totalItems === 3}
+                appearance="primary"
+                onClick={handleNextPage}
+              >
                 Next
               </Button>
               <InputPicker
