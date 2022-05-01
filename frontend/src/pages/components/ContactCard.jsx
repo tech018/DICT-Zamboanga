@@ -7,7 +7,7 @@ import Talent from "../../images/backgroundContact.jpg";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const ContactCard = ({ data, loading }) => {
+const ContactCard = ({ contacts, loading }) => {
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -34,7 +34,7 @@ const ContactCard = ({ data, loading }) => {
         ) : (
           <Grid>
             <Row style={{ marginTop: "1.5rem" }} className="text-black">
-              {data.map((item) => (
+              {contacts.map((item) => (
                 <div>
                   <Col xs={6}>
                     <ScrollAnimation animateIn="animate__flipInX">

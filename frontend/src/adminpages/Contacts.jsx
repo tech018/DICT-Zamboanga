@@ -101,7 +101,7 @@ const NewsEvents = () => {
   const {
     loading: loadingupdateContact,
     error: errorupdateContact,
-    news: updateContactRes,
+    contact: updateContactRes,
     success: successupdateContact,
   } = updateContact;
 

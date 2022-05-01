@@ -116,7 +116,7 @@ const updateContact = asyncHandler(async (req, res) => {
     if (!contactNo)
       return res.status(400).json({ message: "Contact No is required" });
 
-    const newsupdate = await News.update(
+    const contactupdate = await Contact.update(
       {
         title,
         contactInfo,
@@ -129,7 +129,7 @@ const updateContact = asyncHandler(async (req, res) => {
       },
       { where: { id } }
     );
-    if (newsupdate) {
+    if (contactupdate) {
       res.status(200).json({ message: `Successfully updated ${title}` });
     } else {
       res.status(404).json({

@@ -27,16 +27,18 @@ const responsive = {
 };
 
 const OurPartners = () => {
-  const pageNumber = 8;
+  const page = 0;
+  const size = 100;
+  const title = "";
   const dispatch = useDispatch();
   const allContact = useSelector((state) => state.allContact);
-  const { loading, error, countcontact: partners } = allContact;
+  const { loading, error, contacts } = allContact;
   useEffect(() => {
-    dispatch(contactlist(pageNumber));
+    dispatch(contactlist(page, size, title));
     if (error) {
       toast.error(error);
     }
-  }, [dispatch, pageNumber, error]);
+  }, [dispatch, page, size, title, error]);
   return (
     <div className="animation-div">
       <div
@@ -56,7 +58,7 @@ const OurPartners = () => {
         <Loader />
       ) : (
         <Carousel responsive={responsive}>
-          {partners.map((item) => (
+          {contacts.map((item) => (
             <div style={{ textAlign: "center", color: "black" }} key={item.id}>
               <a href={item.link}>
                 <img

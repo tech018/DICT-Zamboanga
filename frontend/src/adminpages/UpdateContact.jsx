@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Drawer, Button, Form, Loader, FlexboxGrid } from "rsuite";
 
-const UpdateNews = ({
+const UpdateContact = ({
   id,
   setUpdateDrawer,
   updateDrawer,
@@ -10,7 +10,7 @@ const UpdateNews = ({
   dispatch,
   loadingUploadPhoto,
   src,
-  updatenews,
+  updatecontact,
 }) => {
   const [title, setTitle] = useState("");
   const [contactInfo, setContactInfo] = useState("");
@@ -33,7 +33,7 @@ const UpdateNews = ({
   const handleUpdateContact = (e) => {
     e.preventDefault();
     dispatch(
-      updatenews(
+      updatecontact(
         id,
         title,
         contactInfo,
@@ -145,4 +145,4 @@ const UpdateNews = ({
   );
 };
 
-export default UpdateNews;
+export default UpdateContact;
