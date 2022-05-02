@@ -66,16 +66,21 @@ export const logout = () => (dispatch) => {
   removeUser();
 };
 
-export const userlist = (size, email, page) => async (dispatch) => {
+export const userlist = (size, email, page) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_GET_ALL_REQUEST,
     });
+    const {
+      userLogin: { userInfo },
+    } = getState();
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.accessToken}`,
       },
     };
+
     const { data } = await axios.get(
       `http://localhost:5000/api/user?size=${size}&email=${email}&page=${page}`,
       config

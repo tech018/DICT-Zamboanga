@@ -52,30 +52,29 @@ const getPagination = (page, size) => {
 };
 
 const getPagingData = (data, page, limit) => {
-  const { count: totalItems, rows: photos } = data;
+  const { count: totalItems, rows: users } = data;
 
   const currentPage = page ? +page : 0;
   const totalPages = Math.ceil(totalItems / limit);
 
-  return { totalItems, photos, totalPages, currentPage };
+  return { totalItems, users, totalPages, currentPage };
 };
 
 const allUsers = asyncHandler(async (req, res) => {
   const { page, size, email } = req.query;
+  var condition = email ? { email: { [Op.like]: `%${email}%` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 
   User.findAndCountAll({
-    where: {
-      email: { [Op.like]: `%${email}%` },
-    },
+    where: condition,
     limit,
     offset,
     order: [["createdAt", "DESC"]],
   })
     .then((data) => {
       const response = getPagingData(data, page, limit);
-      res.send(response);
+      res.json(response);
     })
     .catch((err) => {
       res.status(500).json({

@@ -27,6 +27,7 @@ import AdminMenu from "./pages/components/AdminMenu";
 import SideNav from "./pages/components/SideNav";
 import Dashboard from "./adminpages/Dashboard";
 import Contacts from "./adminpages/Contacts";
+import Users from "./adminpages/Users";
 
 //adminPages
 import AdminPhotos from "./adminpages/Photos";
@@ -55,6 +56,7 @@ const App = () => {
                   <Route path="/admin/photos" element={<AdminPhotos />} />
                   <Route path="/admin/newsandevents" element={<NewsEvents />} />
                   <Route path="/admin/contacts" element={<Contacts />} />
+                  <Route path="/admin/users" element={<Users />} />
                 </Routes>
               </Content>
               <Footer>

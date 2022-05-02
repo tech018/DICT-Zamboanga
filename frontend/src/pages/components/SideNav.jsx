@@ -46,6 +46,14 @@ const SideNav = () => {
             >
               Contact
             </Link>
+            <Link
+              eventKey="4"
+              style={{ textDecoration: "none" }}
+              className="rs-sidenav-item"
+              to="/admin/users"
+            >
+              Users
+            </Link>
           </Nav>
         </Sidenav.Body>
       </Sidenav>
