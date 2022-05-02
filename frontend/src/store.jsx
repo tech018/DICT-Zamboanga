@@ -11,7 +11,13 @@ import {
   updatePhotoReducers,
 } from "./reducers/photoReducers";
 //users
-import { loginReducers } from "./reducers/userReducers";
+import {
+  loginReducers,
+  createUserReducers,
+  allUsersReducers,
+  deleteUsersReducers,
+  updateUsersReducers,
+} from "./reducers/userReducers";
 //contact
 import {
   newContactReducers,
@@ -37,6 +43,10 @@ const reducer = combineReducers({
   updatePhoto: updatePhotoReducers,
   //users
   userLogin: loginReducers,
+  createUser: createUserReducers,
+  allUsers: allUsersReducers,
+  deleteUsers: deleteUsersReducers,
+  updateUsers: updateUsersReducers,
   //contact
   newContact: newContactReducers,
   allContact: allContactReducers,
