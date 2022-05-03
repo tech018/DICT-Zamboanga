@@ -73,6 +73,7 @@ const UpdateContact = ({
                   autoComplete="off"
                   placeholder="Department Title"
                   onChange={(value) => setTitle(value)}
+                  style={{ width: "100%", marginBottom: "1rem" }}
                 />
               </FlexboxGrid.Item>
               <FlexboxGrid.Item colspan={24}>
@@ -80,6 +81,7 @@ const UpdateContact = ({
                   name="name"
                   autoComplete="off"
                   placeholder="Contact Info"
+                  style={{ width: "100%", marginBottom: "1rem" }}
                   onChange={(value) => setContactInfo(value)}
                 />
               </FlexboxGrid.Item>
@@ -88,6 +90,7 @@ const UpdateContact = ({
                   name="name"
                   autoComplete="off"
                   placeholder="Contact Position"
+                  style={{ width: "100%", marginBottom: "1rem" }}
                   onChange={(value) => setContactPos(value)}
                 />
               </FlexboxGrid.Item>
@@ -96,6 +99,7 @@ const UpdateContact = ({
                   name="name"
                   autoComplete="off"
                   placeholder="Cluster or Region"
+                  style={{ width: "100%", marginBottom: "1rem" }}
                   onChange={(value) => setClusterReg(value)}
                 />
               </FlexboxGrid.Item>
@@ -104,6 +108,7 @@ const UpdateContact = ({
                   name="name"
                   autoComplete="off"
                   placeholder="Office Address"
+                  style={{ width: "100%", marginBottom: "1rem" }}
                   onChange={(value) => settAddress(value)}
                 />
               </FlexboxGrid.Item>
@@ -112,6 +117,7 @@ const UpdateContact = ({
                   name="name"
                   autoComplete="off"
                   placeholder="Office Email"
+                  style={{ width: "100%", marginBottom: "1rem" }}
                   onChange={(value) => setEmail(value)}
                 />
               </FlexboxGrid.Item>
@@ -120,6 +126,7 @@ const UpdateContact = ({
                   name="name"
                   autoComplete="off"
                   placeholder="Office Contact No"
+                  style={{ width: "100%", marginBottom: "1rem" }}
                   onChange={(value) => setContactNo(value)}
                 />
               </FlexboxGrid.Item>
