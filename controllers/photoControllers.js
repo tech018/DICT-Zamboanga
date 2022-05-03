@@ -25,7 +25,7 @@ const allPhotos = asyncHandler(async (req, res) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  Photo.findAndCountAll({
+  await Photo.findAndCountAll({
     where: {
       category: { [Op.like]: `%${category}%` },
       caption: { [Op.like]: `%${caption}%` },

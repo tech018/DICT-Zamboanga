@@ -116,7 +116,7 @@ export const createuser =
         },
       };
       const { data } = await axios.post(
-        `http://localhost:5000/api/photo/new/user`,
+        `http://localhost:5000/api/user/new/user`,
         { email, password, avatar },
         config
       );

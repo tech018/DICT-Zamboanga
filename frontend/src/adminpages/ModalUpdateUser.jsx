@@ -10,7 +10,6 @@ import {
   Col,
 } from "rsuite";
 import { useDispatch } from "react-redux";
-import { createuser } from "../actions/userActions";
 
 const selectFields = [
   {
@@ -27,21 +26,23 @@ const selectFields = [
   },
 ];
 
-const ModalUpdatePhoto = ({
+const ModalUpdateUser = ({
   id,
   updateModal,
   handleUpdateClose,
   uploadPhotoRes,
-  updatephoto,
+  updateuser,
+  password,
+  email,
+  setPassword,
+  setEmail,
   successUploadPhoto,
   loadingUploadPhoto,
-  loadingUpdatePhoto,
+  loadingupdateUsers,
   upload,
+  src,
+  setSrc,
 }) => {
-  const [src, setSrc] = useState("");
-  const [caption, setCaption] = useState("");
-  const [category, setCategory] = useState("");
-
   useEffect(() => {
     if (successUploadPhoto) {
       setSrc(uploadPhotoRes.image);
@@ -61,7 +62,7 @@ const ModalUpdatePhoto = ({
   };
 
   const handleUpdate = () => {
-    dispatch(updatephoto(id, src, caption, category));
+    dispatch(updateuser(id, email, password, src));
     setSrc("");
   };
 
@@ -74,7 +75,7 @@ const ModalUpdatePhoto = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {loadingUpdatePhoto ? (
+          {loadingupdateUsers ? (
             <Loader content="Loading..." />
           ) : (
             <Form>
@@ -84,16 +85,17 @@ const ModalUpdatePhoto = ({
                     <Form.Control
                       name="name"
                       autoComplete="off"
-                      placeholder="Name of Photo"
-                      onChange={(value) => setCaption(value)}
+                      placeholder="Email"
+                      onChange={(value) => setEmail(value)}
                     />
                   </Col>
                   <Col xs={12}>
-                    <InputPicker
-                      style={{ marginLeft: "4rem" }}
-                      data={selectFields}
-                      placeholder="Select category"
-                      onChange={(file) => setCategory(file)}
+                    <Form.Control
+                      name="name"
+                      type="password"
+                      autoComplete="off"
+                      placeholder="Password"
+                      onChange={(value) => setPassword(value)}
                     />
                   </Col>
                 </Row>
@@ -144,4 +146,4 @@ const ModalUpdatePhoto = ({
   );
 };
 
-export default ModalUpdatePhoto;
+export default ModalUpdateUser;

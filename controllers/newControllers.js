@@ -24,7 +24,7 @@ const allNews = asyncHandler(async (req, res) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  News.findAndCountAll({
+  await News.findAndCountAll({
     where: condition,
     limit,
     offset,

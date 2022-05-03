@@ -118,3 +118,42 @@ export const ModalDeleteContact = ({
     </div>
   );
 };
+
+export const ModalDeleteUser = ({
+  showModal,
+  handleClose,
+  idList,
+  deleteuser,
+}) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteuser(idList));
+    handleClose();
+  };
+  return (
+    <div>
+      <Modal open={showModal} onClose={handleClose}>
+        <Modal.Header>
+          <Modal.Title>
+            Delete {idList.length <= 1 ? `Photo` : `Photos`}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <span style={{ color: "black" }}>
+            Are you sure you want to delete {idList.length}{" "}
+            {idList.length <= 1 ? `Item` : `items`}
+          </span>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleDelete} color="red" appearance="primary">
+            Ok
+          </Button>
+          <Button onClick={handleClose} appearance="subtle">
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};

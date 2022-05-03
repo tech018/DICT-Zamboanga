@@ -25,7 +25,7 @@ const allContacts = asyncHandler(async (req, res) => {
 
   const { limit, offset } = getPagination(page, size);
 
-  Contact.findAndCountAll({
+  await Contact.findAndCountAll({
     where: condition,
     limit,
     offset,

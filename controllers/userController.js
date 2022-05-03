@@ -62,11 +62,12 @@ const getPagingData = (data, page, limit) => {
 
 const allUsers = asyncHandler(async (req, res) => {
   const { page, size, email } = req.query;
+  console.log(email);
   var condition = email ? { email: { [Op.like]: `%${email}%` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 
-  User.findAndCountAll({
+  await User.findAndCountAll({
     where: condition,
     limit,
     offset,
