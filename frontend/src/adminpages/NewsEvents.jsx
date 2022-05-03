@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import EmptyRow from "../pages/components/EmptyRow";
 import {
   Panel,
   Loader,
@@ -254,6 +255,8 @@ const NewsEvents = () => {
           loadingDelete ||
           loadingUpdateNews ? (
             <Loader content="Please wait..." />
+          ) : news.length <= 0 ? (
+            <EmptyRow />
           ) : (
             <>
               {news.map((item) => (

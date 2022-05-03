@@ -12,6 +12,7 @@ import {
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
 import { upload } from "../actions/photoActions";
+import EmptyRow from "../pages/components/EmptyRow";
 
 import {
   createcontact,
@@ -254,6 +255,8 @@ const NewsEvents = () => {
           loadingDelete ||
           loadingupdateContact ? (
             <Loader content="Please wait..." />
+          ) : contacts.length <= 0 ? (
+            <EmptyRow />
           ) : (
             <>
               {contacts.map((item) => (

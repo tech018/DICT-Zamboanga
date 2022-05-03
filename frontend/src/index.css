@@ -204,3 +204,10 @@ td {
     letter-spacing: 2px;
   }
 }
+
+.dashboard {
+  background-color: rgba(153, 153, 153, 0.589);
+  padding: 2rem !important;
+  border-radius: 5px;
+  margin: 2rem;
+}

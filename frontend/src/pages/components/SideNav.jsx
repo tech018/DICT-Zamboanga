@@ -3,6 +3,7 @@ import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/userActions";
+import toplogo from "../../images/toplogo.png";
 
 const sidebarcss = {
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -16,6 +17,13 @@ const SideNav = () => {
     <div style={sidebarcss}>
       <Sidenav defaultOpenKeys={["3", "4"]} activeKey="1">
         <Sidenav.Body>
+          <div>
+            <img
+              src={toplogo}
+              alt="logo"
+              style={{ width: "15rem", margin: "1rem" }}
+            />
+          </div>
           <Nav>
             <Link
               eventKey="1"

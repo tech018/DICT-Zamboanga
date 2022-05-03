@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import EmptyRow from "../pages/components/EmptyRow";
 import {
   Panel,
   Loader,
@@ -263,6 +264,8 @@ const Photos = () => {
         <>
           {loading || loadingDelete || loadingNewPhoto ? (
             <Loader content="Please wait..." />
+          ) : photos.length <= 0 ? (
+            <EmptyRow />
           ) : (
             <FlexboxGrid style={{ paddingBottom: "1rem" }}>
               <FlexboxGrid.Item colspan={24}>

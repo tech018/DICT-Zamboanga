@@ -47,7 +47,7 @@ const NewsCard = ({ loading, error, news, userInfo, dispatch }) => {
                 position: "relative",
                 marginRight: "0.5rem",
                 marginTop: "1.5rem",
-                height: userInfo && userInfo ? 360 : 330,
+                height: 450,
               }}
             >
               <img
@@ -67,16 +67,6 @@ const NewsCard = ({ loading, error, news, userInfo, dispatch }) => {
                 >
                   Read more
                 </Button>
-                {userInfo && (
-                  <Button
-                    onClick={() => handleDelete(item.id)}
-                    color="red"
-                    appearance="primary"
-                    style={{ width: "100%", marginTop: "0.5rem" }}
-                  >
-                    delete
-                  </Button>
-                )}
               </Panel>
             </Panel>
           ))}
