@@ -1,6 +1,8 @@
 import React from "react";
 import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../actions/userActions";
 
 const sidebarcss = {
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -9,6 +11,7 @@ const sidebarcss = {
 };
 
 const SideNav = () => {
+  const dispatch = useDispatch();
   return (
     <div style={sidebarcss}>
       <Sidenav defaultOpenKeys={["3", "4"]} activeKey="1">
@@ -18,7 +21,7 @@ const SideNav = () => {
               eventKey="1"
               style={{ textDecoration: "none" }}
               className="rs-sidenav-item"
-              to="/dashboard"
+              to="/admin/dashboard"
             >
               Dashboard
             </Link>
@@ -54,6 +57,12 @@ const SideNav = () => {
             >
               Users
             </Link>
+            <span
+              className="rs-sidenav-item"
+              onClick={() => dispatch(logout())}
+            >
+              Logout
+            </span>
           </Nav>
         </Sidenav.Body>
       </Sidenav>

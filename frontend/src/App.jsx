@@ -23,7 +23,6 @@ import { Header, Footer, Container, Sidebar, Content } from "rsuite";
 
 //auth pages
 import Login from "./authpages/Login";
-import AdminMenu from "./pages/components/AdminMenu";
 import SideNav from "./pages/components/SideNav";
 import Dashboard from "./adminpages/Dashboard";
 import Contacts from "./adminpages/Contacts";
