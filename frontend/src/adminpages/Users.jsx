@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   Panel,
   Loader,
-  RadioGroup,
-  Radio,
   InputGroup,
   Input,
   Button,
   ButtonToolbar,
   FlexboxGrid,
   InputPicker,
-  Modal,
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +26,7 @@ import {
   USER_UPDATE_RESET,
 } from "../constants/userConstant";
 import { ModalDeleteUser } from "../adminpages/ModalActions";
-import ModalUpdateUser from "./ModalUpdateUser";
+import UpdateUser from "./UpdateUser";
 import ModalCreateUser from "./ModalCreateUser";
 import { UPDATE_PHOTO_REQUEST } from "../constants/photoConstant";
 
@@ -54,9 +51,9 @@ const selectFields = [
 
 const Users = () => {
   const [searchEmail, setSearchEmail] = useState("");
-  const [size, setSize] = useState(4);
+  const [size, setSize] = useState(10);
   const [showModal, setShowModal] = useState(false);
-  const [updateModal, setUpdateModal] = useState(false);
+  const [updateDrawer, setUpdateDrawer] = useState(false);
   const [createModal, setCreateModal] = useState(false);
   const [page, setPage] = useState(0);
 
@@ -71,7 +68,7 @@ const Users = () => {
   const handleClose = () => setShowModal(false);
   const handleCreateClose = () => setCreateModal(false);
   const handleUpdateClose = () => {
-    setUpdateModal(false);
+    setUpdateDrawer(false);
     setIdList([]);
   };
 
@@ -92,6 +89,7 @@ const Users = () => {
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [password, setPassword] = useState("");
+  const [drawerTitle, setDrawerTitle] = useState("");
 
   const [id, setId] = useState("");
 
@@ -119,19 +117,22 @@ const Users = () => {
     success: successUploadPhoto,
   } = uploadPhoto;
 
-  //   const updateUsers = useSelector((state) => state.updateUsers);
-  //   const {
-  //     loading: loadingupdateUsers,
-  //     error: errorupdateUsers,
-  //     users: updateUserResponse,
-  //     success: successUpdateUsers,
-  //   } = updateUsers;
+  const updateUsers = useSelector((state) => state.updateUsers);
+  const {
+    loading: loadingupdateUsers,
+    error: errorupdateUsers,
+    users: updateUserResponse,
+    success: successUpdateUsers,
+  } = updateUsers;
 
   useEffect(() => {
     if (userInfo) {
       dispatch(userlist(size, searchEmail, page));
     } else {
       navigate("/");
+    }
+    if (error) {
+      toast.error(error);
     }
 
     if (errorDelete) {
@@ -161,9 +162,21 @@ const Users = () => {
       setEmail("");
       setAvatar("");
     }
+
+    if (errorupdateUsers) {
+      toast.error(errorupdateUsers);
+      dispatch({ type: USER_UPDATE_RESET });
+    }
+    if (successUpdateUsers) {
+      toast.success(updateUserResponse.message);
+      dispatch({ type: USER_UPDATE_RESET });
+      setPassword("");
+      setEmail("");
+    }
   }, [
     userInfo,
     dispatch,
+    error,
     errorUploadPhoto,
     successUploadPhoto,
     uploadPhotoRes,
@@ -177,16 +190,10 @@ const Users = () => {
     errorcreateUser,
     successcreateUser,
     newuser,
+    errorupdateUsers,
+    successUpdateUsers,
+    updateUserResponse,
   ]);
-
-  //   const handleChangeCategory = (value) => {
-  //     setSearchEmail(value);
-  //   };
-
-  //   const handleCreate = (e) => {
-  //     e.preventDefault();
-  //     dispatch(createUser(email, password, src));
-  //   };
 
   const handleSelectToDelete = (id, e) => {
     if (e.target.checked) {
@@ -196,9 +203,10 @@ const Users = () => {
     }
   };
 
-  const updateUsersClick = (id) => {
-    setUpdateModal(true);
+  const updateUsersClick = (id, title) => {
+    setUpdateDrawer(true);
     setId(id);
+    setDrawerTitle(title);
   };
 
   const handleNextPage = () => {
@@ -220,6 +228,11 @@ const Users = () => {
 
   const handleOpenModalCreateUser = () => {
     setCreateModal(true);
+  };
+
+  const handleUpdateUser = () => {
+    dispatch(updateuser(id, email, password));
+    handleUpdateClose();
   };
 
   return (
@@ -261,7 +274,10 @@ const Users = () => {
         </FlexboxGrid>
 
         <>
-          {loading || loadingDelete || loadingcreateUser ? (
+          {loading ||
+          loadingDelete ||
+          loadingcreateUser ||
+          loadingupdateUsers ? (
             <Loader content="Please wait..." />
           ) : (
             <FlexboxGrid style={{ paddingBottom: "1rem" }}>
@@ -297,9 +313,7 @@ const Users = () => {
                         />
 
                         <svg
-                          onClick={() =>
-                            updateUsersClick(item.id, item.src, item.caption)
-                          }
+                          onClick={() => updateUsersClick(item.id, item.email)}
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6"
                           fill="none"
@@ -389,6 +403,14 @@ const Users = () => {
         handleCreateClose={handleCreateClose}
         handleUpload={handleUpload}
         loadingUploadPhoto={loadingUploadPhoto}
+      />
+      <UpdateUser
+        setPassword={setPassword}
+        setEmail={setEmail}
+        updateDrawer={updateDrawer}
+        drawerTitle={drawerTitle}
+        handleUpdateUser={handleUpdateUser}
+        setUpdateDrawer={setUpdateDrawer}
       />
     </>
   );

@@ -18,7 +18,7 @@ const SideNav = () => {
               eventKey="1"
               style={{ textDecoration: "none" }}
               className="rs-sidenav-item"
-              to="/"
+              to="/dashboard"
             >
               Dashboard
             </Link>

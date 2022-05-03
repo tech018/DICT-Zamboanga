@@ -24,7 +24,7 @@ const Login = () => {
       toast.error(error);
     }
     if (userInfo) {
-      navigate("/admin/dashboard");
+      navigate("/dashboard");
     }
   }, [error, userInfo, navigate]);
 

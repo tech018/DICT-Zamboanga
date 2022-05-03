@@ -40,61 +40,61 @@ const App = () => {
   return (
     <div>
       <ToastContainer />
-      {userInfo ? (
-        <Router>
-          <Container>
-            <Sidebar>
-              <SideNav />
-            </Sidebar>
-            <Container>
-              <Header>
-                <AdminMenu />
-              </Header>
-              <Content>
-                <Routes>
-                  <Route exact path="/" element={<Dashboard />} />
-                  <Route path="/admin/photos" element={<AdminPhotos />} />
-                  <Route path="/admin/newsandevents" element={<NewsEvents />} />
-                  <Route path="/admin/contacts" element={<Contacts />} />
-                  <Route path="/admin/users" element={<Users />} />
-                </Routes>
-              </Content>
-              <Footer>
-                <FooterSection />
-              </Footer>
-            </Container>
-          </Container>
-        </Router>
-      ) : (
-        <Router>
-          <LogoArea />
-          <MainMenu />
 
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about/overview" element={<OverView />} />
-            <Route path="/about/infrastructure" element={<Infastructure />} />
-            <Route path="/photo" element={<Photos />} />
-            <Route path="/admin/photo/new" element={<NewPhoto />} />
-            <Route path="/admin/contact/new" element={<NewContact />} />
-            <Route path="/admin/news/create" element={<CreateNews />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/news/single/:id" element={<SingleNews />} />
-            <Route path="*" element={<Home />} />
-            <Route
-              path="/about/businessenvironment"
-              element={<BusinessEnvironment />}
-            />
-            <Route
-              path="/about/costofdoingbusiness"
-              element={<CostOfDoingBusiness />}
-            />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-          <FooterSection />
-        </Router>
-      )}
+      <Router>
+        <Container>
+          {!userInfo && (
+            <Header>
+              <LogoArea />
+              <MainMenu />
+            </Header>
+          )}
+
+          <Container>
+            {userInfo && (
+              <Sidebar>
+                <SideNav />
+              </Sidebar>
+            )}
+            <Content>
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about/overview" element={<OverView />} />
+                <Route
+                  path="/about/infrastructure"
+                  element={<Infastructure />}
+                />
+                <Route path="/photo" element={<Photos />} />
+                <Route path="/admin/photo/new" element={<NewPhoto />} />
+                <Route path="/admin/contact/new" element={<NewContact />} />
+                <Route path="/admin/news/create" element={<CreateNews />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/news/single/:id" element={<SingleNews />} />
+                <Route path="*" element={<Home />} />
+                <Route
+                  path="/about/businessenvironment"
+                  element={<BusinessEnvironment />}
+                />
+                <Route
+                  path="/about/costofdoingbusiness"
+                  element={<CostOfDoingBusiness />}
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin/dashboard" element={<Dashboard />} />
+                <Route path="/admin/photos" element={<AdminPhotos />} />
+                <Route path="/admin/newsandevents" element={<NewsEvents />} />
+                <Route path="/admin/contacts" element={<Contacts />} />
+                <Route path="/admin/users" element={<Users />} />
+              </Routes>
+            </Content>
+          </Container>
+
+          <Footer>
+            <FooterSection />
+          </Footer>
+        </Container>
+      </Router>
     </div>
   );
 };

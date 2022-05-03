@@ -152,12 +152,12 @@ const updateUser = asyncHandler(async (req, res) => {
     var salt = bcrypt.genSaltSync(10);
     const passwordHash = await bcrypt.hashSync(password, salt);
 
-    const userupdate = await News.update(
-      { email, passwordHash },
+    const userupdate = await User.update(
+      { email, pasword: passwordHash },
       { where: { id } }
     );
     if (userupdate) {
-      res.status(200).json({ message: `Successfully updated ${title}` });
+      res.status(200).json({ message: `Successfully updated ${email}` });
     } else {
       res.status(404).json({
         message: `Cannot be update ${email} or the id is not found`,
