@@ -60,6 +60,7 @@ const SideNav = () => {
             <span
               className="rs-sidenav-item"
               onClick={() => dispatch(logout())}
+              style={{ cursor: "pointer" }}
             >
               Logout
             </span>
