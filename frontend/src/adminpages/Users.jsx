@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import EmptyRow from "../pages/components/EmptyRow";
 import {
   Panel,
   Loader,
@@ -30,6 +29,8 @@ import { ModalDeleteUser } from "../adminpages/ModalActions";
 import UpdateUser from "./UpdateUser";
 import ModalCreateUser from "./ModalCreateUser";
 import { UPDATE_PHOTO_REQUEST } from "../constants/photoConstant";
+import NoResult from "../pages/components/NoResult";
+import EmptyRow from "../pages/components/EmptyRow";
 
 const selectFields = [
   {
@@ -280,12 +281,11 @@ const Users = () => {
           loadingcreateUser ||
           loadingupdateUsers ? (
             <Loader content="Please wait..." />
-          ) : users.length <= 0 ? (
-            <EmptyRow />
           ) : (
             <FlexboxGrid style={{ paddingBottom: "1rem" }}>
               <FlexboxGrid.Item colspan={24}>
-                {users.map((item) => (
+            {totalItems === 0 && searchEmail !== "" ? <NoResult title={searchEmail}/> : users.length === 0 ? <EmptyRow/> :
+                users.map((item) => (
                   <Panel
                     shaded
                     bordered

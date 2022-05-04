@@ -13,6 +13,7 @@ import {
 import SearchIcon from "@rsuite/icons/Search";
 import { upload } from "../actions/photoActions";
 import EmptyRow from "../pages/components/EmptyRow";
+import NoResult from "../pages/components/NoResult";
 
 import {
   createcontact,
@@ -255,11 +256,10 @@ const NewsEvents = () => {
           loadingDelete ||
           loadingupdateContact ? (
             <Loader content="Please wait..." />
-          ) : contacts.length <= 0 ? (
-            <EmptyRow />
           ) : (
             <>
-              {contacts.map((item) => (
+            {totalItems === 0 && title !== "" ? <NoResult title={title}/> : contacts.length === 0 ? <EmptyRow/> :
+              contacts.map((item) => (
                 <Panel
                   shaded
                   bordered

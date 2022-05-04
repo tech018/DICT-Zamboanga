@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import EmptyRow from "../pages/components/EmptyRow";
 import {
   Panel,
   Loader,
@@ -31,6 +30,8 @@ import { UPLOAD_PHOTO_RESET } from "../constants/photoConstant";
 import { ModalNewsDelete } from "./ModalActions";
 import { useNavigate } from "react-router-dom";
 import UpdateNews from "./UpdateNews";
+import NoResult from "../pages/components/NoResult";
+import EmptyRow from "../pages/components/EmptyRow";
 
 const selectFields = [
   {
@@ -255,11 +256,10 @@ const NewsEvents = () => {
           loadingDelete ||
           loadingUpdateNews ? (
             <Loader content="Please wait..." />
-          ) : news.length <= 0 ? (
-            <EmptyRow />
           ) : (
             <>
-              {news.map((item) => (
+            {totalItems === 0 && title !== "" ? <NoResult title={title}/> : news.length === 0 ? <EmptyRow/> :
+              news.map((item) => (
                 <Panel
                   shaded
                   bordered
