@@ -7180,6 +7180,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-lightbox-gallery@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-lightbox-gallery/-/react-lightbox-gallery-2.0.1.tgz#443d9d09f6d816ad9de333e0ff6fd490ff9832ef"
+  integrity sha512-G5Ao+0FOASCW3YJKT920U7vHHiLNOB0N3yaFOEZCTgt0B6xbNOfrW9/57vNhC22nCurROMaqST2+j/jFuSYujg==
+
 react-multi-carousel@^2.6.5:
   version "2.6.5"
   resolved "https://registry.npmjs.org/react-multi-carousel/-/react-multi-carousel-2.6.5.tgz"

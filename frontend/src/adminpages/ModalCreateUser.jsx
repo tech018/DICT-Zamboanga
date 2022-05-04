@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  InputPicker,
-  Loader,
-  Grid,
-  Row,
-  Col,
-} from "rsuite";
+import { Modal, Button, Form, Loader, Grid, Row, Col } from "rsuite";
 
 const ModalCreateUser = ({
   avatar,
@@ -80,7 +71,7 @@ const ModalCreateUser = ({
                         <img
                           alt={avatar}
                           style={{ width: "10rem", paddingTop: "1rem" }}
-                          avatar={`/zamboanga/${avatar}`}
+                          src={`/zamboanga/${avatar}`}
                         />
                       </>
                     )}

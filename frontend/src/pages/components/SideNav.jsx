@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/userActions";
 import toplogo from "../../images/toplogo.png";
+import logo from "../../images/logo.png";
+import DashboardIcon from "@rsuite/icons/Dashboard";
+import ImageIcon from "@rsuite/icons/Image";
+import TreemapIcon from "@rsuite/icons/Treemap";
+import PhoneIcon from "@rsuite/icons/Phone";
+import UserInfoIcon from "@rsuite/icons/UserInfo";
+import OffRoundIcon from "@rsuite/icons/OffRound";
 
 const sidebarcss = {
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -31,6 +38,7 @@ const SideNav = () => {
               className="rs-sidenav-item"
               to="/admin/dashboard"
             >
+              <DashboardIcon />
               Dashboard
             </Link>
             <Link
@@ -39,6 +47,7 @@ const SideNav = () => {
               className="rs-sidenav-item"
               to="/admin/photos"
             >
+              <ImageIcon />
               Photos
             </Link>
             <Link
@@ -47,6 +56,7 @@ const SideNav = () => {
               to="/admin/newsandevents"
               style={{ textDecoration: "none" }}
             >
+              <TreemapIcon />
               News and Events
             </Link>
             <Link
@@ -55,6 +65,7 @@ const SideNav = () => {
               className="rs-sidenav-item"
               to="/admin/contacts"
             >
+              <PhoneIcon />
               Contact
             </Link>
             <Link
@@ -63,6 +74,7 @@ const SideNav = () => {
               className="rs-sidenav-item"
               to="/admin/users"
             >
+              <UserInfoIcon />
               Users
             </Link>
             <span
@@ -70,8 +82,20 @@ const SideNav = () => {
               onClick={() => dispatch(logout())}
               style={{ cursor: "pointer" }}
             >
+              <OffRoundIcon />
               Logout
-            </span>
+            </span>{" "}
+            <div>
+              <img
+                src={logo}
+                alt="logo"
+                style={{
+                  width: "10rem",
+                  padding: "1rem",
+                  marginLeft: "2.7rem",
+                }}
+              />
+            </div>
           </Nav>
         </Sidenav.Body>
       </Sidenav>

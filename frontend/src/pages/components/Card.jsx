@@ -29,14 +29,18 @@ const Card = ({ data }) => {
                     color: "black",
                     textAlign: "center",
                   }}
+                  className="panel"
                 >
                   <Tag color="yellow">
-                    <h1 style={{ marginTop: "1.2rem", color: "black" }}>
+                    <h1
+                      className="h1-card"
+                      style={{ marginTop: "1.2rem", color: "black" }}
+                    >
                       {item.creditNumber}
                     </h1>
                   </Tag>
                   <Panel style={{ color: "black" }}>
-                    <p>{item.desc}</p>
+                    <p className="p-card">{item.desc}</p>
                   </Panel>
                 </Panel>
               </ScrollAnimation>

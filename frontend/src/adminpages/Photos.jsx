@@ -268,63 +268,68 @@ const Photos = () => {
           ) : (
             <FlexboxGrid style={{ paddingBottom: "1rem" }}>
               <FlexboxGrid.Item colspan={24}>
-            {totalItems === 0 && caption !== "" ? <NoResult title={caption}/> : photos.length === 0 ? <EmptyRow/> :
-                photos.map((item) => (
-                  <Panel
-                    shaded
-                    bordered
-                    bodyFill
-                    style={{
-                      display: "inline-block",
-                      width: 240,
-                      margin: "1rem",
-                      color: "black",
-                    }}
-                    key={item.id}
-                  >
-                    <img
-                      src={`/zamboanga/${item.src}`}
-                      height="240"
-                      alt="sampleimage"
-                    />
+                {totalItems === 0 && caption !== "" ? (
+                  <NoResult title={caption} />
+                ) : photos.length === 0 ? (
+                  <EmptyRow />
+                ) : (
+                  photos.map((item) => (
                     <Panel
-                      style={{ textAlign: "center" }}
-                      header={item.caption}
-                    ></Panel>
-                    <div style={{ padding: "1rem" }}>
-                      <ButtonToolbar>
-                        <input
-                          type="checkbox"
-                          onChange={(e) => handleSelectToDelete(item.id, e)}
-                          style={{ cursor: "pointer" }}
-                        />
-
-                        <svg
-                          onClick={() =>
-                            handleUpdatePhoto(item.id, item.src, item.caption)
-                          }
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          style={{
-                            width: "1rem",
-                            cursor: "pointer",
-                            paddingTop: "0.1rem",
-                          }}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      shaded
+                      bordered
+                      bodyFill
+                      style={{
+                        display: "inline-block",
+                        width: 240,
+                        margin: "1rem",
+                        color: "black",
+                      }}
+                      key={item.id}
+                    >
+                      <img
+                        src={`/zamboanga/${item.src}`}
+                        height="240"
+                        alt="sampleimage"
+                      />
+                      <Panel
+                        style={{ textAlign: "center" }}
+                        header={item.caption}
+                      ></Panel>
+                      <div style={{ padding: "1rem" }}>
+                        <ButtonToolbar>
+                          <input
+                            type="checkbox"
+                            onChange={(e) => handleSelectToDelete(item.id, e)}
+                            style={{ cursor: "pointer" }}
                           />
-                        </svg>
-                      </ButtonToolbar>
-                    </div>
-                  </Panel>
-                ))}
+
+                          <svg
+                            onClick={() =>
+                              handleUpdatePhoto(item.id, item.src, item.caption)
+                            }
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            style={{
+                              width: "1rem",
+                              cursor: "pointer",
+                              paddingTop: "0.1rem",
+                            }}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                            />
+                          </svg>
+                        </ButtonToolbar>
+                      </div>
+                    </Panel>
+                  ))
+                )}
               </FlexboxGrid.Item>
               <FlexboxGrid.Item colspan={24}>
                 {photos.length > 0 && (

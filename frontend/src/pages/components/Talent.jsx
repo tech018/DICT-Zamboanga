@@ -61,7 +61,7 @@ const data = [
 
 const Talent = () => {
   return (
-    <div>
+    <div className="talent-dev">
       <div
         style={{
           backgroundImage: "url(" + backgroundTalent + ")",
@@ -81,11 +81,17 @@ const Talent = () => {
               borderRadius: "5%",
             }}
           >
-            <h3 style={{ padding: "1rem", color: "white" }}>Talent</h3>
+            <h3
+              style={{ padding: "1rem", color: "white" }}
+              className="h1-talent"
+            >
+              Talent
+            </h3>
           </div>
 
           <div>
             <h5
+              className="talent-h5"
               style={{
                 color: "whitesmoke",
                 marginTop: "1rem",
@@ -94,10 +100,16 @@ const Talent = () => {
             >
               Region 9-Zamboanga Peninsula
             </h5>
-            <h2 style={{ color: "whitesmoke", marginLeft: "2.5rem" }}>
+            <h2
+              style={{ color: "whitesmoke", marginLeft: "2.5rem" }}
+              className="h2-zamboanga"
+            >
               ZAMBOANGA CITY
             </h2>
-            <h4 style={{ color: "whitesmoke", marginLeft: "2.5rem" }}>
+            <h4
+              className="h4-zamboanga"
+              style={{ color: "whitesmoke", marginLeft: "2.5rem" }}
+            >
               Province of Zamboanga Del Sur
             </h4>
             <Card data={data} />

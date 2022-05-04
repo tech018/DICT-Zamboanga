@@ -21,6 +21,7 @@ const HeroSection = () => {
                       marginTop: "6rem",
                       color: "whitesmoke",
                     }}
+                    className="hero-h1"
                   >
                     Launch of the
                   </h1>
@@ -35,14 +36,18 @@ const HeroSection = () => {
                       marginTop: "6rem",
                       color: "whitesmoke",
                     }}
+                    className="roadmap-h1"
                   >
                     Roadmaps
                   </h1>
                 </Col>
                 <Col xs={24}>
-                  <span style={{ marginLeft: "1rem", color: "whitesmoke" }}>
+                  <span
+                    className="span-map"
+                    style={{ marginLeft: "1rem", color: "whitesmoke" }}
+                  >
                     digitalcitiesph <sup>TM</sup> roadmap
-                    <h1>ZAMBOANGA CITY</h1>
+                    <h1 className="h1-z">ZAMBOANGA CITY</h1>
                   </span>
                 </Col>
               </Row>

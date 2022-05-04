@@ -11,20 +11,16 @@ import {
   InputPicker,
   InputGroup,
   Input,
-  IconButton,
 } from "rsuite";
 import { useDispatch, useSelector } from "react-redux";
 import { photolist } from "../actions/photoActions";
-import Masonry from "react-responsive-masonry";
+
 import { useState } from "react";
 import SearchIcon from "@rsuite/icons/Search";
 import { useNavigate } from "react-router-dom";
-import TrashIcon from "@rsuite/icons/Trash";
-import { deletephoto } from "../actions/photoActions";
-import { DELETE_PHOTO_RESET } from "../constants/photoConstant";
-import { toast } from "react-toastify";
-import ScrollAnimation from "react-animate-on-scroll";
+
 import Meta from "./components/Meta";
+import Lightroom from "react-lightbox-gallery";
 
 const selectFields = [
   {
@@ -49,6 +45,15 @@ const selectFields = [
   },
 ];
 
+const settings = {
+  columnCount: {
+    default: 5,
+    mobile: 3,
+    tab: 4,
+  },
+  mode: "dark",
+};
+
 const Photos = () => {
   const [category, setCategory] = useState("");
   const [size, setSize] = useState(6);
@@ -63,43 +68,23 @@ const Photos = () => {
   const allPhoto = useSelector((state) => state.allPhoto);
   const { loading, error, photos, currentPage, totalItems } = allPhoto;
 
-  const deletePhoto = useSelector((state) => state.deletePhoto);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    photo: photoDelete,
-    success,
-  } = deletePhoto;
+  const lightphoto = photos.map(({ src, caption, category }) => ({
+    src: `/zamboanga/${src}`,
+    desc: caption,
+    sub: `Category : ${category}`,
+  }));
+
+  console.log(lightphoto);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
     dispatch(photolist(size, category, page, caption));
-    if (success) {
-      toast.success(photoDelete.message);
-      dispatch({ type: DELETE_PHOTO_RESET });
-    }
-    if (errorDelete) {
-      toast.error(errorDelete);
-    }
-  }, [
-    dispatch,
-    size,
-    category,
-    caption,
-    success,
-    photoDelete,
-    page,
-    errorDelete,
-  ]);
+  }, [dispatch, size, category, caption, page]);
 
   const handleChangeCategory = (value) => {
     setCategory(value);
-  };
-
-  const handleDelete = (id) => {
-    dispatch(deletephoto(id));
   };
 
   const handleNextPage = () => {
@@ -184,59 +169,16 @@ const Photos = () => {
           </Col>
           <Col xs={24}>
             {error && <Message type="warning">{error.message}</Message>}
-            {loading || loadingDelete ? (
+            {loading ? (
               <Paragraph style={{ marginTop: 30 }} />
             ) : (
-              <Grid>
-                <Row>
-                  <Masonry columnsCount={3}>
-                    {photos.map((item, i) => (
-                      <ScrollAnimation animateIn="animate__flipInY">
-                        <div className="box-wrap">
-                          <div className="box">
-                            <Col key={i} xs={24} style={{ padding: "0px" }}>
-                              <img
-                                src={`/zamboanga/${item.src}`}
-                                style={{
-                                  width: "100%",
-                                }}
-                                className="imageGallery"
-                                alt={item.caption}
-                              />
-                            </Col>
-
-                            <Col
-                              xs={20}
-                              style={{
-                                marginTop: "0.8rem",
-                                marginBottom: "0.8rem",
-                              }}
-                            >
-                              <span style={{ paddingLeft: "1rem" }}>
-                                {item.caption}
-                              </span>
-                            </Col>
-
-                            {userInfo && (
-                              <Col xs={4}>
-                                <IconButton
-                                  style={{
-                                    padding: "0.5rem",
-                                    margin: "0.5rem",
-                                  }}
-                                  onClick={() => handleDelete(item.id)}
-                                  appearance="primary"
-                                  icon={<TrashIcon />}
-                                />
-                              </Col>
-                            )}
-                          </div>
-                        </div>
-                      </ScrollAnimation>
-                    ))}
-                  </Masonry>
-                </Row>
-              </Grid>
+              <div style={{ padding: "2rem" }}>
+                <Lightroom
+                  className="default-width"
+                  images={lightphoto}
+                  settings={settings}
+                />
+              </div>
             )}
           </Col>
           <Col xs={24}>

@@ -85,24 +85,6 @@ body {
   justify-content: center;
   margin: 2%;
 }
-.box {
-  background: rgb(24, 23, 23);
-  border: 1px solid #b6b1b1;
-  box-shadow: 0 5px 8px 0px rgba(0, 0, 0, 0.692);
-  transition: 0.2s all;
-}
-.box-wrap:hover .box {
-  filter: blur(3px);
-  opacity: 0.5;
-  transform: scale(0.98);
-  box-shadow: 0 5px 8px 0px #d50100;
-}
-.box-wrap:hover .box:hover {
-  transform: scale(1);
-  filter: blur(0px);
-  opacity: 1;
-  box-shadow: 0 5px 8px 0px #fed401;
-}
 
 .img-hover-zoom {
   overflow: hidden; /* [1.2] Hide the overflowing of child elements */
@@ -178,6 +160,90 @@ td {
   border-bottom: 2px solid #ffc842;
 }
 @media (max-width: 32rem) {
+  .h1-digital-zamboanga {
+    font-size: 1rem !important;
+    padding-top: 0rem !important;
+    padding-left: 6px !important;
+  }
+  .hero-h1 {
+    display: none !important;
+  }
+  .image1-hero {
+    display: none !important;
+  }
+  .roadmap-h1 {
+    display: none !important;
+  }
+  .h1-z {
+    font-size: 2rem !important;
+    text-align: center !important;
+  }
+  .span-map {
+    margin-left: 0rem !important;
+  }
+  .top-logo {
+    width: 1rem !important;
+  }
+  .paragraph-1 {
+    font-size: 5px !important;
+    padding-top: 0rem !important;
+    width: 180px;
+    padding-left: 6px !important;
+  }
+  .paragraph-2 {
+    font-size: 5px !important;
+    padding-top: 0rem !important;
+    width: 180px;
+    padding-left: 6px !important;
+  }
+  .button-map {
+    width: 5rem !important;
+    height: 1.2rem !important;
+    padding: 0rem !important;
+    font-size: 5px !important;
+  }
+  .readmore {
+    width: 4rem !important;
+    height: 1.2rem !important;
+    padding: 0rem !important;
+    font-size: 5px !important;
+  }
+  .h1-talent {
+    font-size: 10px !important;
+    padding: 0.5rem !important;
+  }
+  .talent-h5 {
+    font-size: 0.8rem !important;
+    margin-top: 0.4rem !important;
+    text-align: center !important;
+    margin-left: 0rem !important;
+  }
+  .h2-zamboanga {
+    margin-left: 0rem !important;
+    font-size: 1.8rem !important;
+    text-align: center !important;
+  }
+  .h4-zamboanga {
+    margin-left: 0rem !important;
+    font-size: 0.8rem !important;
+    text-align: center !important;
+  }
+  .h1-card {
+    font-size: 0.7rem !important;
+    margin-top: 0rem !important;
+  }
+  .p-card {
+    font-size: 0.3rem !important;
+    margin-top: 0rem !important;
+  }
+  .panel {
+    height: 9rem !important;
+    width: 100% !important;
+  }
+  .digital-zamboanga {
+    width: 8rem !important;
+    height: 4rem !important;
+  }
   .table__heading {
     display: none;
   }
@@ -207,7 +273,14 @@ td {
 
 .dashboard {
   background-color: rgba(153, 153, 153, 0.589);
-  padding: 2rem !important;
-  border-radius: 5px;
-  margin: 2rem;
+}
+.styles_lightroom__1X2qE {
+  width: 100% !important;
+}
+.styles_column__2r45X {
+  background: rgb(24, 23, 23);
+  border: 1px solid #b6b1b1;
+  box-shadow: 0 5px 8px 0px rgba(0, 0, 0, 0.692);
+  transition: 0.2s all;
+  cursor: pointer;
 }

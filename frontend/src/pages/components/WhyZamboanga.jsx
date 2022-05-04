@@ -11,11 +11,15 @@ const WhyZamboanga = () => {
         <Grid>
           <Row className="show-grid">
             <Col xs={12} sm={12}>
-              <h1 style={{ paddingTop: "1rem" }}>
+              <h1
+                style={{ paddingTop: "1rem" }}
+                className="h1-digital-zamboanga"
+              >
                 <span style={{ color: "#1f2070" }}>Digital</span>&nbsp;
                 <span style={{ color: "#d50100" }}>Zamboanga</span>
               </h1>
               <p
+                className="paragraph-1"
                 style={{ fontSize: "1rem", color: "black", paddingTop: "1rem" }}
               >
                 Zamboanga City is a formidable force in the information and
@@ -29,6 +33,7 @@ const WhyZamboanga = () => {
                 international and local clients.
               </p>
               <p
+                className="paragraph-2"
                 style={{ fontSize: "1rem", color: "black", marginTop: "1rem" }}
               >
                 With an annual 8,000 college graduates and 17,000 trainees
@@ -42,11 +47,12 @@ const WhyZamboanga = () => {
               <img
                 src={Image1}
                 alt="image1"
-                style={{ width: "37.2rem", height: "18rem" }}
+                className="digital-zamboanga"
+                style={{ width: "100%", height: "18rem" }}
               />
               <a
                 href={`/zamboanga/roadmap.pdf`}
-                className="rs-btn rs-btn-primary"
+                className="button-map rs-btn rs-btn-primary"
                 style={{
                   textDecoration: "none",
                   marginTop: "2rem",
@@ -60,6 +66,7 @@ const WhyZamboanga = () => {
               <Button
                 onClick={() => navigate("/about/overview")}
                 appearance="primary"
+                className="readmore"
                 style={{ marginBottom: "4rem", marginTop: "1rem" }}
               >
                 Readmore

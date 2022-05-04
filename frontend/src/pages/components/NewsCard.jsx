@@ -1,33 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Panel, Loader, Button } from "rsuite";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { deletenews } from "../../actions/newsActions";
-import { useSelector } from "react-redux";
 
-const NewsCard = ({ loading, error, news, userInfo, dispatch }) => {
+const NewsCard = ({ loading, error, news }) => {
   const navigate = useNavigate();
-
-  const deleteNews = useSelector((state) => state.deleteNews);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    news: newsDelete,
-    success,
-  } = deleteNews;
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-    if (success) {
-      toast.success(newsDelete.message);
-    }
-  }, [error, newsDelete, success]);
-
-  const handleDelete = (id) => {
-    dispatch(deletenews(id));
-  };
 
   return (
     <div className="cardNews">

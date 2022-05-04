@@ -10,7 +10,6 @@ import {
   Col,
 } from "rsuite";
 import { useDispatch } from "react-redux";
-import { createuser } from "../actions/userActions";
 
 const selectFields = [
   {
@@ -107,7 +106,6 @@ const ModalUpdatePhoto = ({
                         accept="image/*"
                         id="icon-button-file"
                         type="file"
-                        value={src}
                         onChange={handleUpload}
                       />
                     )}

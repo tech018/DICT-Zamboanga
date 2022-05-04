@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const User = db.user;
 var bcrypt = require("bcrypt");
 const generateToken = require("../config/generateToken");
+const Op = db.Sequelize.Op;
 
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -62,13 +63,15 @@ const getPagingData = (data, page, limit) => {
 
 const allUsers = asyncHandler(async (req, res) => {
   const { page, size, email } = req.query;
+
   console.log(email);
-  var condition = email ? { email: { [Op.like]: `%${email}%` } } : null;
 
   const { limit, offset } = getPagination(page, size);
 
-  await User.findAndCountAll({
-    where: condition,
+  User.findAndCountAll({
+    where: {
+      email: { [Op.like]: `%${email}%` },
+    },
     limit,
     offset,
     order: [["createdAt", "DESC"]],

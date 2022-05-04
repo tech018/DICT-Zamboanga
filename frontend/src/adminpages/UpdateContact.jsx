@@ -144,6 +144,17 @@ const UpdateContact = ({
                   />
                 )}
               </FlexboxGrid.Item>
+              <FlexboxGrid.Item colspan={24}>
+                {src.length >= 1 && (
+                  <>
+                    <img
+                      alt={src}
+                      style={{ width: "10rem", paddingTop: "1rem" }}
+                      src={`/zamboanga/${src}`}
+                    />
+                  </>
+                )}
+              </FlexboxGrid.Item>
             </FlexboxGrid>
           </Form>
         </Drawer.Body>
